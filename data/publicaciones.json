@@ -1,0 +1,373 @@
+[
+  {
+    "nombre": "violeto",
+    "mensaje": "cambio hojas de carpeta de caudro por una tijera",
+    "id": 1747173534645,
+    "fecha": "2025-05-13T21:58:54.645Z",
+    "replicas": [
+      {
+        "nombre": "Kris",
+        "mensaje": "Yo tengo",
+        "fecha": "2025-05-13T21:59:13.580Z"
+      },
+      {
+        "nombre": "De",
+        "mensaje": "Podemos encontrarnos en el bar",
+        "fecha": "2025-05-13T22:04:55.840Z"
+      }
+    ]
+  },
+  {
+    "nombre": "Marcador",
+    "mensaje": "Alguien tiene un marcador borrable compro o cambio por esferos u hojas",
+    "id": 1747174887067,
+    "fecha": "2025-05-13T22:21:27.067Z",
+    "replicas": [
+      {
+        "nombre": "Cucucucu",
+        "mensaje": "Cucucu",
+        "fecha": "2025-05-14T22:37:35.564Z"
+      }
+    ]
+  },
+  {
+    "nombre": "Dr. Taijuu",
+    "mensaje": "necesito un control de wii",
+    "id": 1747198602643,
+    "fecha": "2025-05-14T04:56:42.643Z",
+    "replicas": [
+      {
+        "nombre": "Dr X.",
+        "mensaje": "El Wii es un artefacto muy elegante!",
+        "fecha": "2025-05-14T04:58:25.327Z"
+      },
+      {
+        "nombre": "Whyman",
+        "mensaje": "interferencia radial",
+        "fecha": "2025-05-14T05:06:09.720Z"
+      }
+    ]
+  },
+  {
+    "nombre": "Mentalista G.",
+    "mensaje": "Cambio una botella de agua helada por una coca-cola #comida",
+    "id": 1747199443918,
+    "fecha": "2025-05-14T05:10:43.918Z",
+    "replicas": [
+      {
+        "nombre": "Cabeza de Brocoli",
+        "mensaje": "No se como llegue aquí, te cambio coca cola por una helada que es cerveza",
+        "fecha": "2025-05-14T05:18:42.036Z"
+      },
+      {
+        "nombre": "Whyman0",
+        "mensaje": "bababanga",
+        "fecha": "2025-05-23T04:18:21.611Z",
+        "likes": 0,
+        "dislikes": 0
+      }
+    ],
+    "hashtags": [
+      "comida"
+    ]
+  },
+  {
+    "nombre": "Pierre",
+    "mensaje": "#apoyo",
+    "id": 1747219191667,
+    "fecha": "2025-05-14T10:39:51.667Z",
+    "replicas": [
+      {
+        "nombre": "Academia de duelos",
+        "mensaje": "Gracias por el apoyo #apoyo",
+        "fecha": "2025-05-14T17:16:33.094Z"
+      }
+    ],
+    "hashtags": [
+      "apoyo"
+    ]
+  },
+  {
+    "nombre": "Zeff",
+    "mensaje": "El Baratie estará atendiendo hoy con normalidad",
+    "id": 1747243085746,
+    "fecha": "2025-05-14T17:18:05.746Z",
+    "replicas": [
+      {
+        "nombre": "Rey mono",
+        "mensaje": "Tiene chaulafan?",
+        "fecha": "2025-05-14T18:40:09.414Z",
+        "likes": 1
+      },
+      {
+        "nombre": "Zeff",
+        "mensaje": "Solo arroz marinero.",
+        "fecha": "2025-05-14T18:50:08.911Z",
+        "imagen": "/uploads/1747248608617-316108996.jpg",
+        "likes": 1
+      },
+      {
+        "nombre": "Niggerman",
+        "mensaje": "Si está vendiendo la pata el Zeff que avise que yo se la compro",
+        "fecha": "2025-05-15T17:34:15.037Z",
+        "likes": 0,
+        "dislikes": 1
+      },
+      {
+        "nombre": "Zeff",
+        "mensaje": "Ya me la comí muchacho! 😂😂",
+        "fecha": "2025-05-15T18:19:56.421Z",
+        "likes": 0,
+        "dislikes": 0
+      }
+    ],
+    "hashtags": [],
+    "likes": 1
+  },
+  {
+    "nombre": "Gerard Way",
+    "mensaje": "#itsme",
+    "imagen": "/uploads/1747247912998-350131800.jpg",
+    "id": 1747247913299,
+    "fecha": "2025-05-14T18:38:33.299Z",
+    "replicas": [],
+    "hashtags": [
+      "itsme"
+    ]
+  },
+  {
+    "nombre": "Scorpion",
+    "mensaje": "How it’s going?",
+    "imagen": "/uploads/1747275675700-24752558.jpeg",
+    "id": 1747275678532,
+    "fecha": "2025-05-15T02:21:18.532Z",
+    "replicas": [
+      {
+        "nombre": "Agente Cabe Galo",
+        "mensaje": "Se parece mucho a Toby.",
+        "fecha": "2025-05-15T05:47:12.044Z",
+        "likes": 2,
+        "dislikes": 2
+      }
+    ],
+    "hashtags": [],
+    "likes": 3,
+    "estrellas": [
+      4,
+      3,
+      4,
+      3,
+      5
+    ]
+  },
+  {
+    "nombre": "Ray Toro",
+    "mensaje": "https://youtu.be/YXiLHIYqb_Y?si=b2b_u-92hw_PuyTu",
+    "video": {
+      "plataforma": "youtube",
+      "videoId": "YXiLHIYqb_Y",
+      "urlOriginal": "https://youtu.be/YXiLHIYqb_Y"
+    },
+    "id": 1747334485898,
+    "fecha": "2025-05-15T18:41:25.898Z",
+    "replicas": [],
+    "likes": 1,
+    "dislikes": 1,
+    "hashtags": []
+  },
+  {
+    "nombre": "Mantaraya",
+    "mensaje": "Que solazo !!",
+    "id": 1747346612926,
+    "fecha": "2025-05-15T22:03:32.926Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "hashtags": []
+  },
+  {
+    "nombre": "whyman",
+    "mensaje": "ouhuio",
+    "genero": "otro",
+    "id": 1747375743192,
+    "fecha": "2025-05-16T06:09:03.192Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "hashtags": []
+  },
+  {
+    "nombre": "whygirl",
+    "mensaje": "Loquendo",
+    "genero": "mujer",
+    "id": 1747376298903,
+    "fecha": "2025-05-16T06:18:18.903Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "hashtags": []
+  },
+  {
+    "nombre": "many",
+    "mensaje": "Otra vez!",
+    "genero": "hombre",
+    "id": 1747376395574,
+    "fecha": "2025-05-16T06:19:55.574Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "hashtags": []
+  },
+  {
+    "nombre": "Mecha Senku",
+    "mensaje": "Hola amigos, soy Mecha-Senku",
+    "genero": "mecha",
+    "imagen": "/uploads/1747376485180-870386545.jpeg",
+    "id": 1747376485186,
+    "fecha": "2025-05-16T06:21:25.186Z",
+    "replicas": [],
+    "likes": 1,
+    "dislikes": 0,
+    "hashtags": []
+  },
+  {
+    "nombre": "whyman",
+    "mensaje": "Cangreburguer",
+    "genero": "mecha",
+    "id": 1747378046640,
+    "fecha": "2025-05-16T06:47:26.640Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman2",
+    "mensaje": "hola",
+    "genero": "",
+    "id": 1747380572146,
+    "fecha": "2025-05-16T07:29:32.146Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman3",
+    "mensaje": "pero",
+    "genero": "",
+    "id": 1747380584631,
+    "fecha": "2025-05-16T07:29:44.631Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "hashtags": []
+  },
+  {
+    "nombre": "Whygirl0",
+    "mensaje": "tuqui",
+    "genero": "mujer",
+    "id": 1747380600396,
+    "fecha": "2025-05-16T07:30:00.396Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "hashtags": []
+  },
+  {
+    "nombre": "Bot0",
+    "mensaje": "RATAS!",
+    "genero": "mecha",
+    "id": 1747383124860,
+    "fecha": "2025-05-16T08:12:04.860Z",
+    "replicas": [
+      {
+        "nombre": "Whyman7",
+        "mensaje": "Xdd",
+        "fecha": "2025-05-16T08:27:17.275Z",
+        "likes": 0,
+        "dislikes": 0
+      }
+    ],
+    "likes": 2,
+    "dislikes": 0,
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman0",
+    "mensaje": "Lo mejor nunca se subeee",
+    "genero": "hombre",
+    "id": 1747409403022,
+    "fecha": "2025-05-16T15:30:03.022Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "hashtags": [],
+    "estrellas": [
+      3,
+      3
+    ]
+  },
+  {
+    "nombre": "FdjGess",
+    "mensaje": "#anarquia",
+    "genero": "",
+    "id": 1747410594389,
+    "fecha": "2025-05-16T15:49:54.389Z",
+    "replicas": [
+      {
+        "nombre": "Whyman0",
+        "mensaje": "???",
+        "fecha": "2025-05-16T21:30:56.016Z",
+        "likes": 1,
+        "dislikes": 0
+      }
+    ],
+    "likes": 1,
+    "dislikes": 0,
+    "hashtags": [
+      "anarquia"
+    ],
+    "estrellas": [
+      5,
+      3,
+      4
+    ]
+  },
+  {
+    "nombre": "Sddf",
+    "mensaje": "Una hoja",
+    "genero": "hombre",
+    "id": 1748005475628,
+    "fecha": "2025-05-23T13:04:35.628Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "hashtags": [],
+    "estrellas": [
+      4
+    ]
+  },
+  {
+    "nombre": "Hg",
+    "mensaje": "Ggg",
+    "genero": "",
+    "id": 1748157087275,
+    "fecha": "2025-05-25T07:11:27.275Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "hashtags": []
+  },
+  {
+    "nombre": "Ji",
+    "mensaje": "# Montero energy ultra 6 paquetes mensuales  caDa paquete a 20$",
+    "genero": "hombre",
+    "id": 1748181548815,
+    "fecha": "2025-05-25T13:59:08.815Z",
+    "replicas": [],
+    "likes": 1,
+    "dislikes": 0,
+    "hashtags": []
+  }
+]

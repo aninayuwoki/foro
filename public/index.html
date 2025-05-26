@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Foro de intercambio entre estudiantes - Publicaciones y anuncios sin necesidad de registro">
+  <title>FCA - Foro Anonimo </title>
+  <link rel="icon" href="PNGASD.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+
+
+<body>
+  <header class="site-header">
+
+    <div class="container">
+      <h1>
+       <img src="front.png" alt="Logo" width="24" height="24" class="logo-icon">
+       Foro de Confesiones Anónimas
+      </h1>
+
+      <p class="site-tagline">Espacio libre para compartir ideas y anuncios</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="nueva-publicacion">
+      <h2 class="section-title">Nueva Publicación</h2>
+       <form id="form-publicacion" enctype="multipart/form-data">
+  <div class="form-group">
+    <label for="nombre">Tu nombre o apodo</label>
+    <input type="text" id="nombre" placeholder="Whyman/Whygirl" aria-label="Tu nombre o apodo">
+  </div>
+
+  <div class="form-group">
+    <label for="genero">Género</label>
+    <select id="genero" aria-label="Selecciona tu género">
+      <option value="">-- No especificar --</option>
+      <option value="hombre">Hombre</option>
+      <option value="mujer">Mujer</option>
+      <option value="mecha">Mecha</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="mensaje">Tu mensaje</label>
+    <textarea id="mensaje" placeholder="¿Qué ofrecés o necesitás? Usa #hashtags para categorizar" required aria-label="Contenido del mensaje"></textarea>
+  </div>
+
+  <div class="form-group imagen-container">
+    <input type="file" id="imagen" accept="image/*" class="input-imagen" aria-label="Subir imagen">
+    <label for="imagen" class="btn-imagen">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+        <circle cx="12" cy="13" r="4"></circle>
+      </svg>
+      Añadir imagen <span class="file-limit">(máx 2MB)</span>
+    </label>
+    <div id="imagen-preview"></div>
+  </div>
+
+  <button type="submit" class="btn btn-primary">
+    <span class="btn-text">Publicar</span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+      <path d="M12 5v14M19 12l-7 7-7-7"/>
+    </svg>
+  </button>
+</form>
+    </section>
+
+    <section class="filtros">
+      <h2 class="section-title">Filtrar por tema</h2>
+      <div id="hashtags-container">
+        <div class="hashtag-pill hashtag-activo" data-hashtag="">Todos</div>
+        <!-- Los hashtags se cargarán aquí dinámicamente -->
+      </div>
+
+      <div id="filtro-activo" class="filtro-activo" style="display: none;">
+        <span>Filtrando por: <strong id="hashtag-actual"></strong></span>
+        <button id="quitar-filtro" class="btn btn-outline">Quitar filtro</button>
+      </div>
+    </section>
+
+    <section class="publicaciones">
+      <h2 class="section-title">📄 Publicaciones recientes</h2>
+      <div class="tabs">
+        <button onclick="cargarPublicacionesRecientes()" class="tab-btn" id="btn-recientes">Recientes</button>
+        <button onclick="cargarPublicacionesMasVotadas()" class="tab-btn" id="btn-votadas">Más votadas</button>
+      </div>
+
+      <div id="publicaciones" class="publicaciones-grid">
+        <div class="cargando">
+          <div class="loader"></div>
+          <p>Cargando publicaciones...</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>FCA - Foro de Confesiones Anónimas, Libre y Transparente © 2025</p>
+      <p class="small">Todos tienen derecho al anonimato.</p>
+      <p><a href="index_ruleta.html" class="ruleta-link">¿</a></p>
+    </div>
+  </footer>
+
+  <!-- Template para el modal de imagen -->
+  <div class="imagen-modal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <button class="cerrar-modal" aria-label="Cerrar imagen">✕</button>
+      <img src="" alt="Imagen ampliada">
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="script.js" defer></script>
+</body>
+</html>

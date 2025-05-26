@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎡 Ruleta de Limpieza</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 10px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            background-color: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin: 10px 0;
+        }
+        
+        #canvas-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            aspect-ratio: 1 / 1;
+        }
+        
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+        }
+        
+        .button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 8px 4px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            width: auto;
+        }
+        
+        .button:hover {
+            background-color: #45a049;
+        }
+        
+        .button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        #fileInput {
+            display: none;
+        }
+        
+        .file-upload {
+            margin: 15px 0;
+        }
+        
+        .results {
+            margin-top: 15px;
+            font-weight: bold;
+            min-height: 50px;
+            word-wrap: break-word;
+            padding: 0 10px;
+        }
+        
+        .upload-button {
+            background-color: #2196F3;
+        }
+        
+        .upload-button:hover {
+            background-color: #0b7dda;
+        }
+        
+        .check-button {
+            background-color: #ff9800;
+        }
+        
+        .check-button:hover {
+            background-color: #e68a00;
+        }
+        
+        #nameInput {
+            width: calc(100% - 110px);
+            max-width: 300px;
+            padding: 8px;
+            margin-right: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .input-container {
+            margin: 12px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .add-button {
+            background-color: #673AB7;
+            min-width: 90px;
+        }
+        
+        .add-button:hover {
+            background-color: #5e35b1;
+        }
+        
+        #fileName {
+            display: block;
+            margin-top: 5px;
+            font-size: 12px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 100%;
+        }
+        
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 20px;
+            }
+            
+            .button {
+                padding: 8px 12px;
+                font-size: 13px;
+                margin: 5px 3px;
+            }
+            
+            #nameInput {
+                width: calc(100% - 100px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎡 Ruleta de Limpieza</h1>
+        
+        <div class="file-upload">
+            <input type="file" id="fileInput" accept=".txt">
+            <button class="button upload-button" onclick="document.getElementById('fileInput').click()">📁 Cargar archivo</button>
+            <span id="fileName"></span>
+        </div>
+        
+        <div class="input-container">
+            <input type="text" id="nameInput" placeholder="Añadir nuevo nombre">
+            <button class="button add-button" id="addNameButton">➕ Añadir</button>
+        </div>
+        
+        <div id="canvas-container">
+            <canvas id="ruletaCanvas"></canvas>
+        </div>
+        
+        <div class="button-container">
+            <button class="button" id="spinButton">🎲 Girar y seleccionar 2</button>
+            <button class="button check-button" id="checkButton">👁️ Ver selección</button>
+        </div>
+        
+        <div class="results" id="results"></div>
+    </div>
+
+    <script>
+        // Variables globales
+        const canvas = document.getElementById('ruletaCanvas');
+        const ctx = canvas.getContext('2d');
+        const spinButton = document.getElementById('spinButton');
+        const checkButton = document.getElementById('checkButton');
+        const fileInput = document.getElementById('fileInput');
+        const resultsDiv = document.getElementById('results');
+        const addNameButton = document.getElementById('addNameButton');
+        const nameInput = document.getElementById('nameInput');
+        const canvasContainer = document.getElementById('canvas-container');
+        
+        let personas = [];
+        let girando = false;
+        let seleccionados = [];
+        let anguloActual = 0;
+        let velocidad = 0;
+        let animationFrameId = null;
+        let originales = [];
+        let canvasSize = 0;
+        
+        // Configuración de la ruleta
+        let ruletaCentro = { x: 0, y: 0 };
+        let radio = 0;
+        const anguloTotal = 360;
+        const colores = ["#F94144", "#F3722C", "#F9C74F", "#90BE6D", "#43AA8B", "#577590", "#C84B31", "#6A0572"];
+        
+        // Función para ajustar el tamaño del canvas
+        function ajustarCanvas() {
+            canvasSize = canvasContainer.clientWidth;
+            canvas.width = canvasSize;
+            canvas.height = canvasSize;
+            ruletaCentro = { x: canvasSize / 2, y: canvasSize / 2 };
+            radio = canvasSize * 0.4; // Un poco más pequeño para la flecha
+            
+            if (personas.length > 0) {
+                dibujarRuleta(anguloActual);
+            }
+        }
+        
+        // Ajustar canvas al cargar y al cambiar el tamaño de la ventana
+        window.addEventListener('load', ajustarCanvas);
+        window.addEventListener('resize', ajustarCanvas);
+        
+        // Carga de archivo de nombres
+        fileInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const fileName = file.name;
+                // Limitar el nombre del archivo si es muy largo
+                document.getElementById('fileName').textContent = fileName.length > 20 
+                    ? fileName.substring(0, 17) + '...' 
+                    : fileName;
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const contenido = e.target.result;
+                    personas = contenido.split('\n')
+                        .map(line => line.trim())
+                        .filter(line => line.length > 0);
+                    
+                    if (personas.length < 2) {
+                        alert("Se necesitan al menos 2 personas");
+                        return;
+                    }
+                    
+                    // Mezclar aleatoriamente la lista de personas
+                    personas = shuffleArray(personas);
+                    dibujarRuleta();
+                };
+                reader.readAsText(file);
+            }
+        });
+        
+        // Añadir nombre desde el input
+        addNameButton.addEventListener('click', function() {
+            const nombre = nameInput.value.trim();
+            if (nombre) {
+                personas.push(nombre);
+                nameInput.value = '';
+                dibujarRuleta();
+            }
+        });
+        
+        nameInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addNameButton.click();
+            }
+        });
+        
+        // Función para mezclar un array (Fisher-Yates shuffle)
+        function shuffleArray(array) {
+            const newArray = [...array]; // Crear una copia para no modificar el original
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+        
+        // Ajustar tamaño de fuente según el número de personas y tamaño del canvas
+        function calcularTamañoFuente() {
+            const n = personas.length;
+            // Base del tamaño de la fuente en relación al tamaño del canvas
+            let fontSize = Math.floor(canvasSize / 25);
+            
+            // Reducir el tamaño si hay muchas personas
+            if (n > 10) {
+                fontSize = Math.floor(fontSize * 0.9);
+            }
+            if (n > 15) {
+                fontSize = Math.floor(fontSize * 0.8);
+            }
+            
+            // Asegurar un mínimo razonable
+            return Math.max(fontSize, 10);
+        }
+        
+        // Función para truncar texto si es demasiado largo
+        function truncarTexto(texto, maxLength = 12) {
+            if (texto.length > maxLength) {
+                return texto.substring(0, maxLength - 3) + '...';
+            }
+            return texto;
+        }
+        
+        // Dibujar la ruleta
+        function dibujarRuleta(offset = 0) {
+            if (personas.length === 0) return;
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const n = personas.length;
+            const anguloPorPersona = anguloTotal / n;
+            
+            // Dibujar cada sector de la ruleta
+            for (let i = 0; i < n; i++) {
+                // Invertir el sentido para que coincida con Python (sentido horario)
+                const start = (-offset + i * anguloPorPersona) % 360;
+                const extent = anguloPorPersona;
+                const color = colores[i % colores.length];
+                
+                // Dibujar el arco (sector)
+                ctx.beginPath();
+                ctx.moveTo(ruletaCentro.x, ruletaCentro.y);
+                ctx.arc(
+                    ruletaCentro.x, ruletaCentro.y,
+                    radio,
+                    (start * Math.PI) / 180,
+                    ((start + extent) * Math.PI) / 180
+                );
+                ctx.closePath();
+                ctx.fillStyle = color;
+                ctx.strokeStyle = "black";
+                ctx.lineWidth = 1;
+                ctx.fill();
+                ctx.stroke();
+            }
+
+            // Calcular tamaño de fuente adaptativo
+            const fontSize = calcularTamañoFuente();
+            ctx.font = `bold ${fontSize}px Arial`;
+            
+            // Ahora dibujamos los textos para evitar que se corten por los bordes de los sectores
+            for (let i = 0; i < n; i++) {
+                // Invertir el sentido para que coincida con Python (sentido horario)
+                const start = (-offset + i * anguloPorPersona) % 360;
+                const extent = anguloPorPersona;
+                
+                // Calcular posición del texto
+                const medioAngulo = ((start + extent / 2) % 360) * Math.PI / 180;
+                const distanciaTexto = radio * 0.7; // Más cerca del borde para mejor visualización
+                const x = ruletaCentro.x + Math.cos(medioAngulo) * distanciaTexto;
+                const y = ruletaCentro.y + Math.sin(medioAngulo) * distanciaTexto;
+                
+                // Obtener texto posiblemente truncado
+                const textoMostrado = truncarTexto(personas[i], Math.floor(20 * (canvasSize / 500)));
+                
+                // Calcular ángulo para la rotación del texto
+                let anguloTexto = medioAngulo + Math.PI/2;
+                if (medioAngulo > Math.PI/2 && medioAngulo < Math.PI*3/2) {
+                    anguloTexto += Math.PI;
+                }
+                
+                // Guardar el estado actual
+                ctx.save();
+                
+                // Mover al punto y rotar
+                ctx.translate(x, y);
+                ctx.rotate(anguloTexto);
+                
+                // Dibujar fondo blanco para el texto
+                const textWidth = ctx.measureText(textoMostrado).width;
+                ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
+                ctx.fillRect(-textWidth / 2 - 2, -fontSize/2 - 2, textWidth + 4, fontSize + 4);
+                
+                // Dibujar el texto
+                ctx.fillStyle = "black";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+                ctx.fillText(textoMostrado, 0, 0);
+                
+                // Restaurar el estado
+                ctx.restore();
+            }
+            
+            // Dibujar círculo central
+            ctx.beginPath();
+            ctx.arc(ruletaCentro.x, ruletaCentro.y, radio * 0.15, 0, Math.PI * 2);
+            ctx.fillStyle = "#333";
+            ctx.fill();
+            ctx.stroke();
+            
+            // Dibujar triángulo indicador rojo en la parte superior
+            const tamañoTriangulo = canvasSize * 0.04;
+            ctx.beginPath();
+            ctx.moveTo(ruletaCentro.x, ruletaCentro.y - radio - 5);
+            ctx.lineTo(ruletaCentro.x - tamañoTriangulo/2, ruletaCentro.y - radio - 5 - tamañoTriangulo);
+            ctx.lineTo(ruletaCentro.x + tamañoTriangulo/2, ruletaCentro.y - radio - 5 - tamañoTriangulo);
+            ctx.closePath();
+            ctx.fillStyle = "red";
+            ctx.strokeStyle = "black";
+            ctx.lineWidth = 2;
+            ctx.fill();
+            ctx.stroke();
+        }
+        
+        // Animar la ruleta
+        function animar() {
+            if (velocidad <= 0.1) {
+                girando = false;
+                spinButton.disabled = false;
+                
+                const n = personas.length;
+                const anguloPorPersona = anguloTotal / n;
+                
+                // Calcular el índice del sector seleccionado
+                // La flecha está en la parte superior (270 grados en coordenadas de canvas)
+                const anguloFlecha = 270;  // 270 grados (parte superior)
+                // Ángulo normalizado considerando que estamos en sentido horario
+                const anguloNormalizado = (anguloFlecha + anguloActual) % 360;
+                
+                // Calcular qué índice corresponde a ese ángulo
+                let index = Math.floor(anguloNormalizado / anguloPorPersona);
+                // Asegurarnos de que esté dentro del rango
+                index = index % n;
+                
+                const seleccionado = personas[index];
+                
+                if (seleccionados.length === 0) {
+                    seleccionados.push(seleccionado);
+                    
+                    // Mostrar el primer resultado
+                    resultsDiv.innerHTML = `🎯 Primera persona seleccionada: <br><strong>${seleccionado}</strong>`;
+                    
+                    // Guardar la lista original
+                    originales = [...personas];
+                    
+                    // Eliminar temporalmente el primer nombre
+                    personas = personas.filter(p => p !== seleccionado);
+                    
+                    // Si queda al menos una persona, continuar
+                    if (personas.length > 0) {
+                        setTimeout(() => {
+                            velocidad = Math.random() * 2 + 10;
+                            girando = true;
+                            spinButton.disabled = true;
+                            dibujarRuleta();
+                            animationFrameId = requestAnimationFrame(animar);
+                        }, 1500);
+                    } else {
+                        resultsDiv.innerHTML = `🎯 Persona seleccionada: <br><strong>${seleccionado}</strong>`;
+                        personas = [...originales];
+                        dibujarRuleta();
+                    }
+                } else {
+                    seleccionados.push(seleccionado);
+                    
+                    // Mostrar resultado final
+                    resultsDiv.innerHTML = `🎯 Personas seleccionadas:<br>
+                        1️⃣ <strong>${seleccionados[0]}</strong><br>
+                        2️⃣ <strong>${seleccionados[1]}</strong>`;
+                    
+                    // Restaurar la lista original
+                    personas = [...originales];
+                    seleccionados = [];
+                    dibujarRuleta();
+                }
+                
+                return;
+            }
+            
+            anguloActual += velocidad;
+            anguloActual %= 360;
+            dibujarRuleta(anguloActual);
+            velocidad *= 0.98; // Igual que en la versión Python
+            
+            animationFrameId = requestAnimationFrame(animar);
+        }
+        
+        // Función para girar la ruleta
+        function girarRuleta() {
+            if (personas.length < 2) {
+                alert("Se necesitan al menos 2 personas");
+                return;
+            }
+            
+            if (girando) return;
+            
+            girando = true;
+            spinButton.disabled = true;
+            velocidad = Math.random() * 2 + 10; // Velocidad similar al Python
+            seleccionados = [];
+            resultsDiv.innerHTML = "";
+            
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+            }
+            
+            animationFrameId = requestAnimationFrame(animar);
+        }
+        
+        // Mostrar selección actual
+        function mostrarSeleccionActual() {
+            if (personas.length === 0) {
+                alert("No hay personas en la ruleta");
+                return;
+            }
+            
+            const n = personas.length;
+            const anguloPorPersona = anguloTotal / n;
+            const anguloFlecha = 270;  // 270 grados (parte superior)
+            const anguloNormalizado = (anguloFlecha + anguloActual) % 360;
+            let index = Math.floor(anguloNormalizado / anguloPorPersona) % n;
+            const seleccionado = personas[index];
+            
+            resultsDiv.innerHTML = `La selección actual es: <strong>${seleccionado}</strong>`;
+        }
+        
+        // Eventos de botones
+        spinButton.addEventListener('click', girarRuleta);
+        checkButton.addEventListener('click', mostrarSeleccionActual);
+        
+        // Configurar lista inicial
+        personas = ["Ana", "Carlos", "Elena", "David", "María"];
+        
+        // Inicializar canvas y dibujar ruleta
+        ajustarCanvas();
+        dibujarRuleta();
+    </script>
+</body>
+</html>
