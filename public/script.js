@@ -1169,13 +1169,13 @@ function agregarPublicacion(datos) {
     contenedorPublicaciones.appendChild(nuevaPublicacion);
     
     // Animar la nueva publicación
-    if (window.forumAnimations) {
-        forumAnimations.animateNewPost(nuevaPublicacion);
+    if (window.forumAnimationsInstance) {
+        window.forumAnimationsInstance.animateNewPost(nuevaPublicacion);
     }
     
     // Actualizar hover animations para el nuevo elemento
-    if (window.forumAnimations) {
-        forumAnimations.setupHoverAnimations();
+    if (window.forumAnimationsInstance) {
+        window.forumAnimationsInstance.setupHoverAnimations();
     }
 }
 
@@ -1186,8 +1186,8 @@ function agregarRespuesta(respuestaData, publicacionId) {
     contenedorRespuestas.appendChild(nuevaRespuesta);
     
     // Animar la nueva respuesta
-    if (window.forumAnimations) {
-        forumAnimations.animateNewReply(nuevaRespuesta);
+    if (window.forumAnimationsInstance) {
+        window.forumAnimationsInstance.animateNewReply(nuevaRespuesta);
     }
 }
 
@@ -1196,8 +1196,8 @@ function manejarVotacionEstrellas(estrellas, rating) {
     // Tu lógica de votación...
     
     // Animar las estrellas
-    if (window.forumAnimations) {
-        forumAnimations.animateStarRating(estrellas, rating);
+    if (window.forumAnimationsInstance) {
+        window.forumAnimationsInstance.animateStarRating(estrellas, rating);
     }
 }
 
@@ -1205,8 +1205,8 @@ function manejarVotacionEstrellas(estrellas, rating) {
 document.addEventListener('click', function(e) {
     if (e.target.matches('.btn-primary, .btn-outline, .btn-responder')) {
         // Animar click del botón
-        if (window.forumAnimations) {
-            forumAnimations.animateButtonClick(e.target);
+        if (window.forumAnimationsInstance) {
+            window.forumAnimationsInstance.animateButtonClick(e.target);
         }
     }
     
@@ -1219,16 +1219,16 @@ function abrirModalImagen(src) {
     // Tu código existente...
     
     // Animar apertura del modal
-    if (window.forumAnimations) {
-        forumAnimations.animateImageModal(modal);
+    if (window.forumAnimationsInstance) {
+        window.forumAnimationsInstance.animateImageModal(modal);
     }
 }
 
 function cerrarModalImagen() {
     const modal = document.getElementById('imagen-modal');
     
-    if (window.forumAnimations) {
-        forumAnimations.closeImageModal(modal);
+    if (window.forumAnimationsInstance) {
+        window.forumAnimationsInstance.closeImageModal(modal);
     } else {
         // Fallback sin animación
         modal.style.display = 'none';
@@ -1240,8 +1240,8 @@ function aplicarFiltro(filtro) {
     // Tu lógica de filtrado...
     
     const filtroActivo = document.querySelector('.filtro-activo');
-    if (filtroActivo && window.forumAnimations) {
-        forumAnimations.animateActiveFilter(filtroActivo);
+    if (filtroActivo && window.forumAnimationsInstance) {
+        window.forumAnimationsInstance.animateActiveFilter(filtroActivo);
     }
 }
 
@@ -1249,7 +1249,7 @@ function aplicarFiltro(filtro) {
 function seleccionarHashtag(hashtagElement) {
     // Tu lógica existente...
     
-    if (window.forumAnimations) {
-        forumAnimations.animateHashtagSelection(hashtagElement);
+    if (window.forumAnimationsInstance) {
+        window.forumAnimationsInstance.animateHashtagSelection(hashtagElement);
     }
 }

@@ -328,6 +328,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Verificar que GSAP esté cargado
     if (typeof gsap !== 'undefined') {
         forumAnimations = new ForumAnimations();
+        window.forumAnimationsInstance = forumAnimations; // Expose instance
         console.log('Animaciones GSAP inicializadas correctamente');
     } else {
         console.warn('GSAP no está cargado. Asegúrate de incluir la librería GSAP.');
@@ -335,4 +336,4 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Exportar para uso global
-window.ForumAnimations = ForumAnimations;
+// window.ForumAnimations = ForumAnimations; // Commented out
