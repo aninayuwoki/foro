@@ -8,6 +8,51 @@ window.onload = function() {
 let hashtagActual = '';
 let imagenSeleccionada = null;
 
+const EMOJIS = ['👍', '😂', '❤️', '🤔', '😢', '😮'];
+
+// Function to set up event listeners for emoji reactions
+function setupEmojiEventListeners() {
+  document.querySelectorAll('.emoji-reaction-btn').forEach(button => {
+    // Clone and replace the button to remove any old listeners and prevent accumulation
+    // This ensures that if this function is called multiple times (e.g., after each post load),
+    // we don't attach multiple listeners to the same button objects.
+    const newButton = button.cloneNode(true);
+    button.parentNode.replaceChild(newButton, button);
+
+    newButton.addEventListener('click', function() {
+      const postId = this.dataset.postId;
+      const emoji = this.dataset.emoji;
+      const localStorageKey = `reacted_emoji_${postId}_${emoji}`;
+      const countSpan = this.querySelector('.emoji-count');
+      
+      if (!countSpan) {
+        console.error("Count span not found for emoji button:", this);
+        return;
+      }
+      
+      let currentCount = parseInt(countSpan.textContent);
+
+      if (localStorage.getItem(localStorageKey)) {
+        // User is un-reacting
+        localStorage.removeItem(localStorageKey);
+        this.classList.remove('selected-emoji');
+        countSpan.textContent = Math.max(0, currentCount - 1); // Prevent negative counts
+        console.log(`Post ID: ${postId}, Emoji: ${emoji} un-reacted. New count: ${countSpan.textContent}`);
+      } else {
+        // User is reacting
+        localStorage.setItem(localStorageKey, 'true');
+        this.classList.add('selected-emoji');
+        countSpan.textContent = currentCount + 1;
+        console.log(`Post ID: ${postId}, Emoji: ${emoji} reacted. New count: ${countSpan.textContent}`);
+        
+        // Note: The current logic allows a user to react with multiple *distinct* emojis on the same post.
+        // If only one emoji reaction type were allowed per user per post, additional logic would be needed here
+        // to deselect/un-react other emojis from this user on this post.
+      }
+    });
+  });
+}
+
 function cargarPublicacionesRecientes() {
   document.getElementById('btn-recientes')?.classList.add('hashtag-activo');
   document.getElementById('btn-votadas')?.classList.remove('hashtag-activo');
@@ -89,6 +134,23 @@ function mostrarPublicaciones(publicaciones) {
       </div>
     `;
 
+    let emojiReactionsHTML = '<div class="emoji-reactions">';
+    EMOJIS.forEach(emoji => {
+      const localStorageKey = `reacted_emoji_${pub.id}_${emoji}`;
+      const isReacted = localStorage.getItem(localStorageKey) === 'true';
+      //Counts ideally come from server (e.g., pub.emojiCounts[emoji]).
+      //For now, if localStorage has it, this user reacted, show 1. Else 0.
+      //This is a placeholder for true aggregate counts.
+      const currentEmojiCount = (pub.emojiCounts && pub.emojiCounts[emoji]) ? pub.emojiCounts[emoji] : (isReacted ? 1 : 0);
+      
+      emojiReactionsHTML += `
+        <button class="emoji-reaction-btn ${isReacted ? 'selected-emoji' : ''}" data-post-id="${pub.id}" data-emoji="${emoji}">
+          ${emoji} <span class="emoji-count">${currentEmojiCount}</span>
+        </button>
+      `;
+    });
+    emojiReactionsHTML += '</div>';
+
     div.innerHTML = `
       <strong>${pub.nombre}</strong><br>
       ${mensajeConHashtags}<br>
@@ -96,6 +158,7 @@ function mostrarPublicaciones(publicaciones) {
       ${imagenHTML}
       <small>${new Date(pub.fecha).toLocaleString()}</small><br>
       ${votosHTML}
+      ${emojiReactionsHTML}
       <div id="respuestas-${pub.id}">
         ${pub.replicas?.map((rep, repIndex) => {
           const repMensajeConHashtags = procesarHashtags(rep.mensaje);
@@ -198,6 +261,7 @@ function mostrarPublicaciones(publicaciones) {
   });
 });
 
+  setupEmojiEventListeners();
 }
 
 
@@ -933,16 +997,7 @@ function mostrarPublicacionDetallada(pub, contenedor) {
 
   const videoHTML = pub.video ? crearReproductorVideo(pub.video) : '';
 
-  div.innerHTML = `
-    <div class="publicacion-cabecera">
-      <strong>${pub.nombre}</strong>
-      <small>${new Date(pub.fecha).toLocaleString()}</small>
-    </div>
-    <div class="publicacion-contenido">
-      ${mensajeConHashtags}<br>
-      ${videoHTML}
-      ${imagenHTML}
-    </div>
+  const footerHTML = `
     <div class="publicacion-footer">
       <div class="votacion">
         <button class="btn-like" data-pub-id="${pub.id}">
@@ -953,7 +1008,33 @@ function mostrarPublicacionDetallada(pub, contenedor) {
         </button>
       </div>
       <button class="btn-responder" onclick="mostrarFormularioRespuesta(${pub.id})">Responder</button>
+    </div>`;
+
+  let emojiReactionsHTML = '<div class="emoji-reactions">';
+  EMOJIS.forEach(emoji => {
+    const localStorageKey = `reacted_emoji_${pub.id}_${emoji}`;
+    const isReacted = localStorage.getItem(localStorageKey) === 'true';
+    const currentEmojiCount = (pub.emojiCounts && pub.emojiCounts[emoji]) ? pub.emojiCounts[emoji] : (isReacted ? 1 : 0);
+    emojiReactionsHTML += `
+      <button class="emoji-reaction-btn ${isReacted ? 'selected-emoji' : ''}" data-post-id="${pub.id}" data-emoji="${emoji}">
+        ${emoji} <span class="emoji-count">${currentEmojiCount}</span>
+      </button>
+    `;
+  });
+  emojiReactionsHTML += '</div>';
+
+  div.innerHTML = `
+    <div class="publicacion-cabecera">
+      <strong>${pub.nombre}</strong>
+      <small>${new Date(pub.fecha).toLocaleString()}</small>
     </div>
+    <div class="publicacion-contenido">
+      ${mensajeConHashtags}<br>
+      ${videoHTML}
+      ${imagenHTML}
+    </div>
+    ${footerHTML}
+    ${emojiReactionsHTML}
     
     <div class="comentarios-seccion">
       <h3>Comentarios</h3>
@@ -1035,6 +1116,7 @@ function mostrarPublicacionDetallada(pub, contenedor) {
   });
 
   gestionarVotos();
+  setupEmojiEventListeners();
 }
 
 // Función para volver al listado principal
@@ -1171,4 +1253,3 @@ function seleccionarHashtag(hashtagElement) {
         forumAnimations.animateHashtagSelection(hashtagElement);
     }
 }
-

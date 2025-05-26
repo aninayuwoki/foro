@@ -52,6 +52,11 @@ class ForumAnimations {
                 duration: 0.8, 
                 ease: "back.out(1.7)",
                 onComplete: () => {
+                    // Secondary bounce/wobble animation
+                    gsap.fromTo(postElement, 
+                        { scale: 1 }, 
+                        { scale: 1.05, duration: 0.2, yoyo: true, repeat: 1, ease: "power1.inOut", delay: 0.05 }
+                    );
                     // Efecto de highlight después de aparecer
                     this.highlightElement(postElement);
                 }
@@ -116,11 +121,13 @@ class ForumAnimations {
     animateButtonClick(button) {
         const tl = gsap.timeline();
         tl.to(button, {
-            scale: 0.95,
+            scale: 0.90, // More noticeable scale
+            filter: 'brightness(1.2)', // Add brightness
             duration: 0.1
         })
         .to(button, {
             scale: 1,
+            filter: 'brightness(1)', // Reset brightness
             duration: 0.1
         });
     }
@@ -128,13 +135,28 @@ class ForumAnimations {
     // Animación de las estrellas de votación
     animateStarRating(stars, rating) {
         stars.forEach((star, index) => {
-            gsap.to(star, {
-                scale: index < rating ? 1.2 : 1,
-                color: index < rating ? "#f0c420" : "#ddd",
-                duration: 0.2,
-                delay: index * 0.05,
-                ease: "back.out(1.7)"
-            });
+            if (index < rating) {
+                // Selected stars: Pop effect
+                gsap.to(star, {
+                    scale: 1.4, // Pop bigger
+                    color: "#FFD700", // Brighter gold
+                    duration: 0.2,
+                    delay: index * 0.05,
+                    ease: "back.out(2)", // Adjusted ease for more pop
+                    onComplete: () => {
+                        gsap.to(star, { scale: 1.15, duration: 0.2, ease: "power1.out" }); // Settle slightly larger and smoother
+                    }
+                });
+            } else {
+                // Unselected stars: Reset
+                gsap.to(star, {
+                    scale: 1,
+                    color: "#ddd", // Original unselected color
+                    duration: 0.2,
+                    delay: index * 0.05,
+                    ease: "power1.out"
+                });
+            }
         });
     }
 

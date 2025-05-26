@@ -1030,3 +1030,89 @@ input[type="radio"]:checked + .gender-option {
   color: #777;
   margin-top: 0.3rem;
 }
+
+/* === Enhanced Form Styling === */
+.nueva-publicacion .form-group {
+    margin-bottom: var(--spacing-lg); /* Increased bottom margin for more space */
+}
+
+.nueva-publicacion label {
+    font-weight: 600; /* Slightly bolder labels */
+    color: var(--color-text); /* Ensure consistent label color */
+    margin-bottom: var(--spacing-sm); /* Consistent spacing below label */
+}
+
+.nueva-publicacion input[type="text"],
+.nueva-publicacion textarea,
+.nueva-publicacion select {
+    font-size: 1rem;
+    padding: 12px; /* Consistent padding */
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius); /* Consistent border-radius from variables */
+    width: 100%;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease; /* Smooth transition */
+}
+
+/* Specific focus style for these elements within .nueva-publicacion */
+.nueva-publicacion input[type="text"]:focus,
+.nueva-publicacion textarea:focus,
+.nueva-publicacion select:focus {
+    outline: none;
+    border-color: var(--color-primary); /* Use primary color for focus border */
+    box-shadow: 0 0 0 3px var(--color-primary-light); /* Softer, theme-colored focus shadow using a lighter variable */
+}
+
+/* Specific styling for the 'Género' select dropdown */
+.nueva-publicacion select#genero {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: var(--color-card); /* Match card background */
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%20viewBox%3D%220%200%20292.4%20292.4%22%3E%3Cpath%20fill%3D%22%23333333%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'); /* Darker arrow for better contrast on light bg */
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 12px; /* Slightly smaller arrow */
+    padding-right: 36px; /* Ensure space for the arrow */
+    cursor: pointer;
+}
+
+/* Styling for the image upload section to make it more elegant */
+.nueva-publicacion .btn-imagen {
+    background-color: var(--color-background); /* Lighter background */
+    border: 2px dashed var(--color-border); /* Dashed border */
+    color: var(--color-text-light);
+    padding: var(--spacing-md);
+    text-align: center;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    width: 100%; /* Make it full width */
+    justify-content: center; /* Center content within the button */
+}
+
+.nueva-publicacion .btn-imagen:hover {
+    background-color: var(--color-primary-light);
+    border-color: var(--color-primary);
+    color: var(--color-primary-dark);
+}
+
+.nueva-publicacion .btn-imagen svg {
+    stroke: var(--color-primary); /* Ensure SVG matches primary color */
+    margin-right: var(--spacing-sm);
+}
+
+/* Ensure the submit button is consistent and prominent */
+.nueva-publicacion .btn-primary {
+    width: 100%; /* Make button full width within the form */
+    padding: 12px; /* Consistent padding */
+    font-size: 1.1rem; /* Slightly larger font for primary action */
+    background-color: var(--color-primary); /* Use theme color */
+    color: white; /* Ensure text is white */
+    border: none; /* Remove any default border */
+    text-transform: uppercase; /* Optional: for more emphasis */
+    letter-spacing: 0.5px; /* Optional: for more emphasis */
+}
+
+.nueva-publicacion .btn-primary:hover {
+    background-color: var(--color-primary-dark); /* Use theme hover color */
+}
+
+/* === End of Enhanced Form Styling === */
