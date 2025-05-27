@@ -5,11 +5,11 @@ const multer = require('multer');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Configuración básica
+// Configuracion inicial
 app.use(express.static('public'));
 app.use(express.json());
 
-// Asegurar que existen los directorios necesarios
+// Verificar directorios necesarios
 const DATA_DIR = path.join(__dirname, 'data');
 const UPLOADS_DIR = path.join(__dirname, 'public', 'uploads');
 
@@ -23,7 +23,7 @@ if (!fs.existsSync(UPLOADS_DIR)) {
 
 const DB_PATH = path.join(DATA_DIR, 'publicaciones.json');
 
-// Inicializar archivo de base de datos si no existe
+// Inicializar nueva base de datos si no existe
 if (!fs.existsSync(DB_PATH)) {
   fs.writeFileSync(DB_PATH, JSON.stringify([], null, 2));
 }
@@ -223,48 +223,53 @@ app.post('/api/publicaciones', upload.single('imagen'), (req, res) => {
       };
     }
 
-    if (nueva.respuestaA !== undefined) {
-      // Es una réplica
-      const original = data.find(pub => pub.id === parseInt(nueva.respuestaA));
-      if (!original) {
-        return res.status(404).json({ error: 'Publicación original no encontrada' });
-      }
-      original.replicas = original.replicas || [];
-      
-      const nuevaReplica = {
-        nombre: nueva.nombre,
-        mensaje: nueva.mensaje,
-        fecha: new Date().toISOString(),
-        imagen: nueva.imagen,
-        likes: 0,
-        dislikes: 0
-      };
-      
-      // Agregar información del video si existe
-      if (videoInfo.tieneVideo) {
-        nuevaReplica.video = nueva.video;
-      }
-      
-      original.replicas.push(nuevaReplica);
-    } else {
-      // Nueva publicación
-      nueva.id = Date.now();
-      nueva.fecha = new Date().toISOString();
-      nueva.replicas = [];
-      nueva.likes = 0;
-      nueva.dislikes = 0;
-      
-      // Extraer hashtags del mensaje
-      const matches = nueva.mensaje.match(/#\w+/g);
-      if (matches) {
-        nueva.hashtags = matches.map(tag => tag.substring(1).toLowerCase());
-      } else {
-        nueva.hashtags = [];
-      }
-      
-      data.push(nueva);
-    }
+    // Reemplaza la sección de "Nueva publicación" en tu endpoint POST /api/publicaciones
+// por esta versión que incluye inicialización de emojiCounts:
 
+if (nueva.respuestaA !== undefined) {
+  // Es una réplica
+  const original = data.find(pub => pub.id === parseInt(nueva.respuestaA));
+  if (!original) {
+    return res.status(404).json({ error: 'Publicación original no encontrada' });
+  }
+  original.replicas = original.replicas || [];
+  
+  const nuevaReplica = {
+    nombre: nueva.nombre,
+    mensaje: nueva.mensaje,
+    fecha: new Date().toISOString(),
+    imagen: nueva.imagen,
+    likes: 0,
+    dislikes: 0,
+    genero: nueva.genero, // Asegurar que se guarde el género
+    emojiCounts: {} // Inicializar contadores de emojis para respuestas
+  };
+  
+  // Agregar información del video si existe
+  if (videoInfo.tieneVideo) {
+    nuevaReplica.video = nueva.video;
+  }
+  
+  original.replicas.push(nuevaReplica);
+} else {
+  // Nueva publicación
+  nueva.id = Date.now();
+  nueva.fecha = new Date().toISOString();
+  nueva.replicas = [];
+  nueva.likes = 0;
+  nueva.dislikes = 0;
+  nueva.emojiCounts = {}; // Inicializar contadores de emojis
+  
+  // Extraer hashtags del mensaje
+  const matches = nueva.mensaje.match(/#\w+/g);
+  if (matches) {
+    nueva.hashtags = matches.map(tag => tag.substring(1).toLowerCase());
+  } else {
+    nueva.hashtags = [];
+  }
+  
+  data.push(nueva);
+}
     fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2));
     res.status(201).json({ mensaje: 'Guardado con éxito' });
   } catch (error) {
@@ -370,5 +375,189 @@ app.get('/api/publicaciones/:id', (req, res) => {
   } catch (error) {
     console.error('Error al obtener publicación:', error);
     res.status(500).json({ error: 'Error al obtener la publicación' });
+  }
+});
+
+// Agregar estos endpoints a tu server.js después de los endpoints existentes
+
+// Endpoint para manejar reacciones de emojis en publicaciones
+app.post('/api/publicaciones/:id/emoji-reaction', (req, res) => {
+  try {
+    const data = JSON.parse(fs.readFileSync(DB_PATH, 'utf8'));
+    const id = parseInt(req.params.id);
+    const { emoji, action } = req.body; // action: 'add' o 'remove'
+    
+    // Validar que el emoji esté en la lista permitida
+    const EMOJIS_PERMITIDOS = ['👍', '😂', '❤️', '🤔', '😢', '😮'];
+    if (!EMOJIS_PERMITIDOS.includes(emoji)) {
+      return res.status(400).json({ error: 'Emoji no permitido' });
+    }
+    
+    // Validar acción
+    if (!['add', 'remove'].includes(action)) {
+      return res.status(400).json({ error: 'Acción no válida. Use "add" o "remove"' });
+    }
+    
+    // Encontrar la publicación por ID
+    const publicacion = data.find(pub => pub.id === id);
+    
+    if (!publicacion) {
+      return res.status(404).json({ error: 'Publicación no encontrada' });
+    }
+    
+    // Inicializar el objeto emojiCounts si no existe
+    if (!publicacion.emojiCounts) {
+      publicacion.emojiCounts = {};
+    }
+    
+    // Inicializar el contador del emoji si no existe
+    if (typeof publicacion.emojiCounts[emoji] === 'undefined') {
+      publicacion.emojiCounts[emoji] = 0;
+    }
+    
+    // Procesar la acción
+    if (action === 'add') {
+      publicacion.emojiCounts[emoji] += 1;
+    } else if (action === 'remove') {
+      publicacion.emojiCounts[emoji] = Math.max(0, publicacion.emojiCounts[emoji] - 1);
+    }
+    
+    // Guardar los cambios
+    fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2));
+    
+    res.json({ 
+      success: true,
+      emoji: emoji,
+      count: publicacion.emojiCounts[emoji],
+      action: action
+    });
+    
+  } catch (error) {
+    console.error('Error al procesar reacción de emoji:', error);
+    res.status(500).json({ error: 'Error interno del servidor al procesar la reacción' });
+  }
+});
+
+// Endpoint para obtener las reacciones de emojis de una publicación específica
+app.get('/api/publicaciones/:id/emoji-reactions', (req, res) => {
+  try {
+    const data = JSON.parse(fs.readFileSync(DB_PATH, 'utf8'));
+    const id = parseInt(req.params.id);
+    
+    const publicacion = data.find(pub => pub.id === id);
+    
+    if (!publicacion) {
+      return res.status(404).json({ error: 'Publicación no encontrada' });
+    }
+    
+    // Devolver las reacciones de emojis o un objeto vacío si no existen
+    const emojiCounts = publicacion.emojiCounts || {};
+    
+    res.json({
+      publicacionId: id,
+      emojiCounts: emojiCounts
+    });
+    
+  } catch (error) {
+    console.error('Error al obtener reacciones de emoji:', error);
+    res.status(500).json({ error: 'Error al obtener las reacciones' });
+  }
+});
+
+// Endpoint para manejar reacciones de emojis en respuestas/réplicas
+app.post('/api/publicaciones/:id/respuesta/:indice/emoji-reaction', (req, res) => {
+  try {
+    const data = JSON.parse(fs.readFileSync(DB_PATH, 'utf8'));
+    const id = parseInt(req.params.id);
+    const indice = parseInt(req.params.indice);
+    const { emoji, action } = req.body;
+    
+    // Validar que el emoji esté en la lista permitida
+    const EMOJIS_PERMITIDOS = ['👍', '😂', '❤️', '🤔', '😢', '😮'];
+    if (!EMOJIS_PERMITIDOS.includes(emoji)) {
+      return res.status(400).json({ error: 'Emoji no permitido' });
+    }
+    
+    // Validar acción
+    if (!['add', 'remove'].includes(action)) {
+      return res.status(400).json({ error: 'Acción no válida. Use "add" o "remove"' });
+    }
+    
+    // Encontrar la publicación principal por ID
+    const publicacion = data.find(pub => pub.id === id);
+    
+    if (!publicacion || !publicacion.replicas || !publicacion.replicas[indice]) {
+      return res.status(404).json({ error: 'Respuesta no encontrada' });
+    }
+    
+    const respuesta = publicacion.replicas[indice];
+    
+    // Inicializar el objeto emojiCounts si no existe
+    if (!respuesta.emojiCounts) {
+      respuesta.emojiCounts = {};
+    }
+    
+    // Inicializar el contador del emoji si no existe
+    if (typeof respuesta.emojiCounts[emoji] === 'undefined') {
+      respuesta.emojiCounts[emoji] = 0;
+    }
+    
+    // Procesar la acción
+    if (action === 'add') {
+      respuesta.emojiCounts[emoji] += 1;
+    } else if (action === 'remove') {
+      respuesta.emojiCounts[emoji] = Math.max(0, respuesta.emojiCounts[emoji] - 1);
+    }
+    
+    // Guardar los cambios
+    fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2));
+    
+    res.json({ 
+      success: true,
+      emoji: emoji,
+      count: respuesta.emojiCounts[emoji],
+      action: action
+    });
+    
+  } catch (error) {
+    console.error('Error al procesar reacción de emoji en respuesta:', error);
+    res.status(500).json({ error: 'Error interno del servidor al procesar la reacción' });
+  }
+});
+
+// Endpoint para obtener estadísticas globales de emojis (opcional)
+app.get('/api/emoji-stats', (req, res) => {
+  try {
+    const data = JSON.parse(fs.readFileSync(DB_PATH, 'utf8'));
+    const stats = {};
+    
+    // Contar emojis en publicaciones principales
+    data.forEach(pub => {
+      if (pub.emojiCounts) {
+        Object.entries(pub.emojiCounts).forEach(([emoji, count]) => {
+          stats[emoji] = (stats[emoji] || 0) + count;
+        });
+      }
+      
+      // Contar emojis en respuestas
+      if (pub.replicas) {
+        pub.replicas.forEach(resp => {
+          if (resp.emojiCounts) {
+            Object.entries(resp.emojiCounts).forEach(([emoji, count]) => {
+              stats[emoji] = (stats[emoji] || 0) + count;
+            });
+          }
+        });
+      }
+    });
+    
+    res.json({
+      totalReactions: Object.values(stats).reduce((sum, count) => sum + count, 0),
+      emojiStats: stats
+    });
+    
+  } catch (error) {
+    console.error('Error al obtener estadísticas de emojis:', error);
+    res.status(500).json({ error: 'Error al obtener estadísticas' });
   }
 });

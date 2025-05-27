@@ -146,7 +146,7 @@
         "nombre": "Agente Cabe Galo",
         "mensaje": "Se parece mucho a Toby.",
         "fecha": "2025-05-15T05:47:12.044Z",
-        "likes": 2,
+        "likes": 3,
         "dislikes": 2
       }
     ],
@@ -355,7 +355,7 @@
     "id": 1748157087275,
     "fecha": "2025-05-25T07:11:27.275Z",
     "replicas": [],
-    "likes": 0,
+    "likes": 1,
     "dislikes": 0,
     "hashtags": []
   },
@@ -368,6 +368,108 @@
     "replicas": [],
     "likes": 1,
     "dislikes": 0,
+    "hashtags": [],
+    "estrellas": [
+      5
+    ]
+  },
+  {
+    "nombre": "Pinkman",
+    "mensaje": "Mr. White, there isn't energy",
+    "genero": "",
+    "id": 1748274874515,
+    "fecha": "2025-05-26T15:54:34.515Z",
+    "replicas": [],
+    "likes": 1,
+    "dislikes": 0,
+    "hashtags": [],
+    "estrellas": [
+      4
+    ]
+  },
+  {
+    "nombre": "narciso",
+    "mensaje": "Alguien para una partida de TCG?",
+    "genero": "mecha",
+    "imagen": "/uploads/1748287581868-489958707.webp",
+    "id": 1748287586179,
+    "fecha": "2025-05-26T19:26:26.179Z",
+    "replicas": [],
+    "likes": 2,
+    "dislikes": 0,
+    "hashtags": [],
+    "estrellas": [
+      4
+    ]
+  },
+  {
+    "nombre": "mychael",
+    "mensaje": "Beat it!",
+    "genero": "hombre",
+    "id": 1748287949569,
+    "fecha": "2025-05-26T19:32:29.569Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
     "hashtags": []
+  },
+  {
+    "nombre": "crikoso el maloso",
+    "mensaje": "confirmen ese batido de chocolate",
+    "genero": "mujer",
+    "id": 1748290138986,
+    "fecha": "2025-05-26T20:08:58.986Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "hashtags": []
+  },
+  {
+    "nombre": "Mo Ana",
+    "mensaje": "Alguien vio la película de Lilo y Stitch?",
+    "genero": "mecha",
+    "id": 1748290220972,
+    "fecha": "2025-05-26T20:10:20.972Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "hashtags": []
+  },
+  {
+    "nombre": "MoH Ana",
+    "mensaje": "Alguien ya se vio el live action de Lilo y Stitch?",
+    "genero": "mecha",
+    "id": 1748290266583,
+    "fecha": "2025-05-26T20:11:06.583Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "hashtags": []
+  },
+  {
+    "nombre": "Sofia_Anastasia",
+    "mensaje": "Hoy me siento perrona!",
+    "genero": "mujer",
+    "id": 1748296480821,
+    "fecha": "2025-05-26T21:54:40.821Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "hashtags": []
+  },
+  {
+    "nombre": "carlos_andres",
+    "mensaje": "¿Alguien perdió un fajo de billetes de 500 con una liga?",
+    "genero": "hombre",
+    "id": 1748297446985,
+    "fecha": "2025-05-26T22:10:46.985Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "hashtags": [],
+    "emojiCounts": {
+      "😂": 1,
+      "😮": 1
+    }
   }
 ]
