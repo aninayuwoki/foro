@@ -641,6 +641,7 @@ button[disabled] {
 }
 
 /* Optimizaciones para mejor rendimiento */
+/*
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;
@@ -649,7 +650,7 @@ button[disabled] {
     scroll-behavior: auto !important;
   }
 }
-
+*/
 /* Clases de utilidad */
 .visually-hidden {
   position: absolute;
@@ -1031,6 +1032,7 @@ input[type="radio"]:checked + .gender-option {
   margin-top: 0.3rem;
 }
 
+/*
 /* === Enhanced Form Styling === */
 .nueva-publicacion .form-group {
     margin-bottom: var(--spacing-lg); /* Increased bottom margin for more space */
@@ -1116,3 +1118,50 @@ input[type="radio"]:checked + .gender-option {
 }
 
 /* === End of Enhanced Form Styling === */
+*/
+/* === Emoji Reaction Button Styling === */
+.emoji-reactions {
+    display: flex;
+    gap: var(--spacing-xs, 4px);
+    margin-top: var(--spacing-sm, 8px);
+    flex-wrap: wrap; /* Para que se ajusten en pantallas pequeñas */
+}
+
+.emoji-reaction-btn {
+    background-color: transparent;
+    border: 1px solid var(--color-border, #e0e0e0);
+    border-radius: 20px; /* Más redondeado */
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 1.1rem; /* Tamaño del emoji */
+    color: var(--color-text-light, #7f8c8d); /* Color inicial del emoji */
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1; /* Para mejor alineación vertical del emoji */
+}
+
+.emoji-reaction-btn:hover {
+    background-color: var(--color-primary-light, #e1f5fe);
+    border-color: var(--color-primary, #3498db);
+    color: var(--color-primary-dark, #2980b9);
+}
+
+.emoji-reaction-btn.selected-emoji {
+    background-color: var(--color-primary-light, #e1f5fe);
+    border-color: var(--color-primary-dark, #2980b9);
+    color: var(--color-primary-dark, #2980b9);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.emoji-reaction-btn span.emoji-count {
+    font-size: 0.75rem;
+    color: var(--color-text-light, #7f8c8d);
+    margin-left: 4px;
+    font-weight: normal;
+}
+
+.emoji-reaction-btn.selected-emoji span.emoji-count {
+    color: var(--color-primary-dark, #2980b9);
+}
+/* === End of Emoji Reaction Button Styling === */
