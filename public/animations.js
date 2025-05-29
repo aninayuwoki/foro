@@ -334,6 +334,3 @@ document.addEventListener('DOMContentLoaded', function() {
         console.warn('GSAP no está cargado. Asegúrate de incluir la librería GSAP.');
     }
 });
-
-// Exportar para uso global
-// window.ForumAnimations = ForumAnimations; // Commented out
