@@ -1,14 +1,87 @@
-// Cargar publicaciones al inicio
-window.onload = function() {
+document.addEventListener("DOMContentLoaded", function () {
+  const modal = document.getElementById('modal-terminos');
+  const btnAceptar = document.getElementById('btn-aceptar-terminos');
+
+  // Siempre asigna el evento al botón
+  if (btnAceptar) {
+    btnAceptar.addEventListener('click', function () {
+      localStorage.setItem('terminosAceptados', 'true');
+      modal.style.display = 'none';
+      iniciarAplicacion();
+    });
+  }
+
+  // Luego muestra el modal si no se aceptó
+  if (!localStorage.getItem('terminosAceptados')) {
+    modal.style.display = 'flex';
+  } else {
+    modal.style.display = 'none'; // Por si quedó visible por error
+    iniciarAplicacion();
+  }
+});
+
+function iniciarAplicacion() {
   cargarPublicacionesRecientes();
   cargarHashtags();
   configurarModalImagen();
-};
+  configurarTerminosYCondiciones();
+}
+
 
 let hashtagActual = '';
 let imagenSeleccionada = null;
 
 const EMOJIS = ['👍', '😂', '❤️', '🤔', '😢', '😮'];
+
+// Configurar términos y condiciones
+function configurarTerminosYCondiciones() {
+  if (document.getElementById('acepto-terminos')) {
+    return;
+  }
+
+  const formPublicacion = document.getElementById('form-publicacion');
+  const submitButton = formPublicacion.querySelector('button[type="submit"]');
+
+  const contenedorTerminos = document.createElement('div');
+  contenedorTerminos.className = 'terminos-contenedor';
+  contenedorTerminos.innerHTML = `
+    <div class="terminos-checkbox-grupo">
+      <input type="checkbox" id="acepto-terminos" name="acepto-terminos" required>
+      <label for="acepto-terminos" class="terminos-label">
+        Asegurese de leer los <a href="terminos.html" class="enlace-terminos">términos y condiciones</a> 
+        antes de marcar la casilla
+        <span class="terminos-obligatorio">*</span>
+      </label>
+    </div>
+    <div id="error-terminos" class="error-terminos" style="display: none;">
+      Debe aceptar los términos y condiciones para poder publicar
+    </div>
+  `;
+
+  // Insertar en el formulario
+  formPublicacion.insertBefore(contenedorTerminos, submitButton);
+
+  // Deshabilitar el botón inicialmente
+  submitButton.disabled = true;
+  submitButton.classList.add('btn-disabled');
+
+  // Ahora sí: accede a los elementos recién insertados
+  const checkbox = document.getElementById('acepto-terminos');
+  const errorTerminos = document.getElementById('error-terminos');
+
+  checkbox.addEventListener('change', function () {
+    if (this.checked) {
+      submitButton.disabled = false;
+      submitButton.classList.remove('btn-disabled');
+      errorTerminos.style.display = 'none';
+    } else {
+      submitButton.disabled = true;
+      submitButton.classList.add('btn-disabled');
+    }
+  });
+}
+
+
 
 // Function to set up event listeners for emoji reactions (VERSIÓN CORREGIDA)
 function setupEmojiEventListeners() {
@@ -216,10 +289,17 @@ function mostrarPublicaciones(publicaciones) {
         <textarea placeholder="Tu respuesta..." id="mensaje-rep-${pub.id}"></textarea><br>
         <div class="imagen-container">
           <input type="file" id="imagen-rep-${pub.id}" accept="image/*" class="input-imagen">
-          <label for="imagen-rep-${pub.id}" class="btn-imagen">📷 Añadir imagen (máx 2MB)</label>
+          <label for="imagen-rep-${pub.id}" class="btn-imagen">📷 Añadir imagen (1)</label>
           <div id="imagen-preview-rep-${pub.id}"></div>
         </div>
-        <button class="btn btn-primary" onclick="enviarRespuesta(${pub.id})">Enviar respuesta</button>
+        <!-- Términos para respuestas -->
+        <div class="terminos-respuesta">
+          <input type="checkbox" id="acepto-terminos-resp-${pub.id}" required>
+          <label for="acepto-terminos-resp-${pub.id}" class="terminos-label-small">
+            Acepto la responsabilidad por el contenido de mi respuesta
+          </label>
+        </div>
+        <button class="btn btn-primary" onclick="enviarRespuesta(${pub.id})" disabled id="btn-enviar-resp-${pub.id}">Enviar respuesta</button>
       </div>
     `; 
 
@@ -229,6 +309,21 @@ function mostrarPublicaciones(publicaciones) {
     if (inputImagen) {
       inputImagen.addEventListener('change', function (e) {
         manejarImagenRespuesta(e, pub.id);
+      });
+    }
+
+    // Configurar checkbox de términos para respuestas
+    const checkboxResp = document.getElementById(`acepto-terminos-resp-${pub.id}`);
+    const btnEnviarResp = document.getElementById(`btn-enviar-resp-${pub.id}`);
+    
+    if (checkboxResp && btnEnviarResp) {
+      checkboxResp.addEventListener('change', function() {
+        btnEnviarResp.disabled = !this.checked;
+        if (this.checked) {
+          btnEnviarResp.classList.remove('btn-disabled');
+        } else {
+          btnEnviarResp.classList.add('btn-disabled');
+        }
       });
     }
   }); // End of publicaciones.forEach
@@ -332,7 +427,14 @@ function mostrarPublicacionDetallada(pub, contenedor) {
           <label for="imagen-rep-${pub.id}" class="btn-imagen">📷 Añadir imagen (máx 2MB)</label>
           <div id="imagen-preview-rep-${pub.id}"></div>
         </div>
-        <button class="btn btn-primary" onclick="enviarRespuesta(${pub.id})">Enviar respuesta</button>
+        <!-- Términos para respuestas en vista detallada -->
+        <div class="terminos-respuesta">
+          <input type="checkbox" id="acepto-terminos-resp-${pub.id}" required>
+          <label for="acepto-terminos-resp-${pub.id}" class="terminos-label-small">
+            Acepto la responsabilidad por el contenido de mi respuesta
+          </label>
+        </div>
+        <button class="btn btn-primary" onclick="enviarRespuesta(${pub.id})" disabled id="btn-enviar-resp-${pub.id}">Enviar respuesta</button>
       </div>
       <div id="respuestas-${pub.id}" class="respuestas-detalladas">
         ${pub.replicas?.length ? '' : '<p class="sin-comentarios">Aún no hay comentarios. ¡Sé el primero en responder!</p>'}
@@ -378,6 +480,21 @@ function mostrarPublicacionDetallada(pub, contenedor) {
     });
   }
 
+  // Configurar checkbox de términos para respuestas en vista detallada
+  const checkboxResp = document.getElementById(`acepto-terminos-resp-${pub.id}`);
+  const btnEnviarResp = document.getElementById(`btn-enviar-resp-${pub.id}`);
+  
+  if (checkboxResp && btnEnviarResp) {
+    checkboxResp.addEventListener('change', function() {
+      btnEnviarResp.disabled = !this.checked;
+      if (this.checked) {
+        btnEnviarResp.classList.remove('btn-disabled');
+      } else {
+        btnEnviarResp.classList.add('btn-disabled');
+      }
+    });
+  }
+
   document.querySelectorAll('.hashtag').forEach(tag => {
     tag.addEventListener('click', function () {
       const hashtag = this.getAttribute('data-hashtag');
@@ -388,7 +505,6 @@ function mostrarPublicacionDetallada(pub, contenedor) {
   gestionarVotos();
   setupEmojiEventListeners(); // Call after rendering the detailed post
 }
-
 
 // --- Rest of the existing script.js functions ---
 

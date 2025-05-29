@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Foro de intercambio entre estudiantes - Publicaciones y anuncios sin necesidad de registro">
-  <title>FCA - Foro Anonimo </title>
+  <title>RSSR - Red Social Sin Rostro </title>
   <link rel="icon" href="PNGASD.ico" type="image/x-icon">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,8 +19,8 @@
 
     <div class="container">
       <h1>
-       <img src="front.png" alt="Logo" width="24" height="24" class="logo-icon">
-       Foro de Confesiones Anónimas
+       <img src="PNGASD.ico" alt="Logo" width="24" height="24" class="logo-icon">
+       Red Social Sin Rostro
       </h1>
 
       <p class="site-tagline">Espacio libre para compartir ideas y anuncios</p>
@@ -31,6 +31,8 @@
     <section class="nueva-publicacion">
       <h2 class="section-title">Nueva Publicación</h2>
        <form id="form-publicacion" enctype="multipart/form-data">
+
+  
   <div class="form-group">
     <label for="nombre">Tu nombre o apodo</label>
     <input type="text" id="nombre" placeholder="Whyman/Whygirl" aria-label="Tu nombre o apodo">
@@ -58,7 +60,7 @@
         <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
         <circle cx="12" cy="13" r="4"></circle>
       </svg>
-      Añadir imagen <span class="file-limit">(máx 2MB)</span>
+      Añadir imagen <span class="file-limit">(1)</span>
     </label>
     <div id="imagen-preview"></div>
   </div>
@@ -103,7 +105,7 @@
 
   <footer class="site-footer">
     <div class="container">
-      <p>FCA - Foro de Confesiones Anónimas, Libre y Transparente © 2025</p>
+      <p>RSSR - Red Social Sin Rostro, Libre y Transparente © 2025</p>
       <p class="small">Todos tienen derecho al anonimato.</p>
       <p><a href="index_ruleta.html" class="ruleta-link">¿</a></p>
     </div>
@@ -118,8 +120,29 @@
     </div>
   </div>
 
+  <div id="modal-terminos" class="modal-terminos">
+    <div class="modal-contenido">
+      <h2>📢 Normas de uso y advertencias</h2>
+      <p><strong>Antes de usar el foro, por favor lea con atención:</strong></p>
+      <ul style="text-align: left; padding-left: 1.2rem;">
+        <li>Este foro es anónimo, pero <strong>todo contenido puede ser revisado</strong> y eliminado si infringe las reglas.</li>
+        <li><strong>No publiques contenido ofensivo, violento, discriminatorio ni ilegal.</strong></li>
+        <li>Evite subir imágenes o enlaces que vulneren la privacidad o los derechos de otras personas.</li>
+        <li>No uses esta plataforma para acosar, suplantar, intimidar ni atacar a otros usuarios.</li>
+        <li>Todo lo que publiques es tu <strong>responsabilidad personal</strong> y puede tener consecuencias.</li>
+        <li>El uso indebido del foro puede llevar a la <strong>eliminación de contenido</strong> sin previo aviso.</li>
+      </ul>
+      <p>Para más detalles, consulta los <a href="terminos.html" target="_blank">términos y condiciones completos</a>.</p>
+      <div class="acciones-modal">
+        <button id="btn-aceptar-terminos" class="btn btn-primary">Aceptar y continuar</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Scripts -->
   <script src="script.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 </body>
+
+
 </html>

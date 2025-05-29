@@ -1165,3 +1165,213 @@ input[type="radio"]:checked + .gender-option {
     color: var(--color-primary-dark, #2980b9);
 }
 /* === End of Emoji Reaction Button Styling === */
+
+
+/* === Estilos mejorados para listas === */
+
+/* Resetear estilos de listas y configurar padding interno */
+ul, ol {
+  margin: 0;
+  padding-left: 0; /* Eliminar padding por defecto */
+  list-style: none; /* Eliminar bullets por defecto */
+}
+
+/* Estilos profesionales para listas dentro de publicaciones y contenido */
+.publicacion ul,
+.respuesta ul,
+article ul,
+.content ul {
+  margin: var(--spacing-md) 0;
+  padding-left: 0; /* Sin padding izquierdo */
+}
+
+.publicacion ol,
+.respuesta ol,
+article ol,
+.content ol {
+  margin: var(--spacing-md) 0;
+  padding-left: 0; /* Sin padding izquierdo */
+  counter-reset: list-counter; /* Resetear contador para listas numeradas */
+}
+
+/* Estilos para elementos de lista no ordenada */
+.publicacion ul li,
+.respuesta ul li,
+article ul li,
+.content ul li {
+  position: relative;
+  padding-left: var(--spacing-lg); /* Espacio para el bullet personalizado */
+  margin-bottom: var(--spacing-sm);
+  line-height: 1.6;
+}
+
+/* Bullet personalizado para listas no ordenadas */
+.publicacion ul li::before,
+.respuesta ul li::before,
+article ul li::before,
+.content ul li::before {
+  content: "•";
+  position: absolute;
+  left: var(--spacing-sm);
+  top: 0;
+  color: var(--color-primary);
+  font-weight: bold;
+  font-size: 1.2em;
+  line-height: 1.6;
+}
+
+/* Estilos para elementos de lista ordenada */
+.publicacion ol li,
+.respuesta ol li,
+article ol li,
+.content ol li {
+  position: relative;
+  padding-left: var(--spacing-xl); /* Más espacio para números */
+  margin-bottom: var(--spacing-sm);
+  line-height: 1.6;
+  counter-increment: list-counter;
+}
+
+/* Numeración personalizada para listas ordenadas */
+.publicacion ol li::before,
+.respuesta ol li::before,
+article ol li::before,
+.content ol li::before {
+  content: counter(list-counter) ".";
+  position: absolute;
+  left: var(--spacing-sm);
+  top: 0;
+  color: var(--color-primary);
+  font-weight: 600;
+  min-width: 20px;
+  line-height: 1.6;
+}
+
+/* Estilos alternativos con background para un look más moderno */
+.modern-list ul li {
+  background-color: var(--color-background);
+  border-left: 3px solid var(--color-primary);
+  padding: var(--spacing-sm) var(--spacing-md);
+  margin-bottom: var(--spacing-xs);
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+
+.modern-list ul li::before {
+  display: none; /* Ocultar bullet cuando se usa background */
+}
+
+/* Lista con iconos en lugar de bullets */
+.icon-list ul li::before {
+  content: "✓";
+  background-color: var(--color-primary);
+  color: white;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+/* Listas anidadas */
+.publicacion ul ul,
+.respuesta ul ul,
+article ul ul,
+.content ul ul {
+  margin: var(--spacing-sm) 0;
+  padding-left: var(--spacing-md);
+}
+
+.publicacion ul ul li::before,
+.respuesta ul ul li::before,
+article ul ul li::before,
+.content ul ul li::before {
+  content: "◦";
+  color: var(--color-text-light);
+  font-size: 1em;
+}
+
+/* Responsive: ajustar espaciado en móviles */
+@media (max-width: 768px) {
+  .publicacion ul li,
+  .respuesta ul li,
+  article ul li,
+  .content ul li {
+    padding-left: var(--spacing-md);
+  }
+  
+  .publicacion ol li,
+  .respuesta ol li,
+  article ol li,
+  .content ol li {
+    padding-left: var(--spacing-lg);
+  }
+  
+  .publicacion ul li::before,
+  .respuesta ul li::before,
+  article ul li::before,
+  .content ul li::before,
+  .publicacion ol li::before,
+  .respuesta ol li::before,
+  article ol li::before,
+  .content ol li::before {
+    left: var(--spacing-xs);
+  }
+}
+
+/* Clase adicional para listas compactas */
+.compact-list ul li,
+.compact-list ol li {
+  margin-bottom: var(--spacing-xs);
+  padding-left: var(--spacing-md);
+}
+
+/* Asegurar que las listas dentro de formularios mantengan sus estilos originales */
+form ul,
+form ol {
+  list-style: disc;
+  padding-left: var(--spacing-lg);
+}
+
+form ul li,
+form ol li {
+  padding-left: 0;
+}
+
+form ul li::before,
+form ol li::before {
+  display: none;
+}
+
+.modal-terminos {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.modal-contenido {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 500px;
+  text-align: center;
+}
+.acciones-modal {
+  margin-top: 1rem;
+}
+
+.modal-contenido ul {
+  list-style: disc;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.modal-contenido a {
+  color: #0066cc;
+  text-decoration: underline;
+}

@@ -122,7 +122,10 @@
       }
     ],
     "hashtags": [],
-    "likes": 1
+    "likes": 1,
+    "emojiCounts": {
+      "😮": 1
+    }
   },
   {
     "nombre": "Gerard Way",
@@ -146,7 +149,7 @@
         "nombre": "Agente Cabe Galo",
         "mensaje": "Se parece mucho a Toby.",
         "fecha": "2025-05-15T05:47:12.044Z",
-        "likes": 3,
+        "likes": 4,
         "dislikes": 2
       }
     ],
@@ -158,7 +161,10 @@
       4,
       3,
       5
-    ]
+    ],
+    "emojiCounts": {
+      "😮": 1
+    }
   },
   {
     "nombre": "Ray Toro",
@@ -464,12 +470,76 @@
     "id": 1748297446985,
     "fecha": "2025-05-26T22:10:46.985Z",
     "replicas": [],
-    "likes": 0,
+    "likes": 1,
     "dislikes": 0,
     "hashtags": [],
     "emojiCounts": {
       "😂": 1,
-      "😮": 1
+      "😮": 1,
+      "🤔": 2,
+      "😢": 1,
+      "👍": 1
     }
+  },
+  {
+    "nombre": "mitomano",
+    "mensaje": "La frase de abajo miente!",
+    "genero": "hombre",
+    "id": 1748334268120,
+    "fecha": "2025-05-27T08:24:28.120Z",
+    "replicas": [
+      {
+        "nombre": "onamotim",
+        "mensaje": "La frase de arriba miente!",
+        "fecha": "2025-05-27T08:25:03.383Z",
+        "likes": 0,
+        "dislikes": 0,
+        "genero": "mecha",
+        "emojiCounts": {}
+      }
+    ],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {
+      "👍": 1,
+      "😢": 2,
+      "🤔": 1,
+      "😮": 1,
+      "😂": 0
+    },
+    "hashtags": []
+  },
+  {
+    "nombre": "Elliot Alderson",
+    "mensaje": "Hola amigo",
+    "genero": "mecha",
+    "id": 1748476036157,
+    "fecha": "2025-05-28T23:47:16.157Z",
+    "replicas": [],
+    "likes": 1,
+    "dislikes": 0,
+    "emojiCounts": {
+      "👍": 1,
+      "❤️": 1
+    },
+    "hashtags": []
+  },
+  {
+    "nombre": "ray toro",
+    "mensaje": "MCR ROCKS!!",
+    "genero": "mecha",
+    "id": 1748477874203,
+    "fecha": "2025-05-29T00:17:54.203Z",
+    "replicas": [],
+    "likes": 1,
+    "dislikes": 0,
+    "emojiCounts": {
+      "❤️": 1,
+      "👍": 1
+    },
+    "hashtags": [],
+    "estrellas": [
+      5
+    ]
   }
 ]
