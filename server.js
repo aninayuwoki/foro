@@ -2,7 +2,7 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
-const { getPublicaciones, updatePublicaciones } = require('./publicaciones');
+const { getPublicaciones, updatePublicaciones, uploadImage } = require('./publicaciones');
 
 // --- Verificación de variables de entorno ---
 if (!process.env.GITHUB_TOKEN || !process.env.GITHUB_OWNER || !process.env.GITHUB_REPO) {
@@ -23,17 +23,8 @@ if (!fs.existsSync(UPLOADS_DIR)) {
   fs.mkdirSync(UPLOADS_DIR, { recursive: true });
 }
 
-// Configuración de multer para subida de imágenes
-const storage = multer.diskStorage({
-  destination: function(req, file, cb) {
-    cb(null, UPLOADS_DIR);
-  },
-  filename: function(req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    const ext = path.extname(file.originalname);
-    cb(null, uniqueSuffix + ext);
-  }
-});
+// Configuración de multer para subida de imágenes en memoria
+const storage = multer.memoryStorage();
 
 const fileFilter = (req, file, cb) => {
   if (file.mimetype.startsWith('image/')) {
@@ -164,7 +155,11 @@ app.post('/api/publicaciones', upload.single('imagen'), async (req, res) => {
     const { data, sha } = await getPublicaciones();
     const nueva = req.body;
 
-    if (req.file) nueva.imagen = `/uploads/${req.file.filename}`;
+    // Si se sube una imagen, guardarla en GitHub y obtener la URL
+    if (req.file) {
+      const imageUrl = await uploadImage(req.file);
+      nueva.imagen = imageUrl;
+    }
 
     const videoInfo = extraerEnlacesVideo(nueva.mensaje);
     if (videoInfo.tieneVideo) {
