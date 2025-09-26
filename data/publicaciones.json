@@ -541,5 +541,1004 @@
     "estrellas": [
       5
     ]
+  },
+  {
+    "nombre": "😊",
+    "mensaje": "Les deseo éxitos en su feria institucional",
+    "genero": "mujer",
+    "id": 1748529991491,
+    "fecha": "2025-05-29T14:46:31.491Z",
+    "replicas": [],
+    "likes": 2,
+    "dislikes": 0,
+    "emojiCounts": {
+      "❤️": 2
+    },
+    "hashtags": [],
+    "estrellas": [
+      5,
+      5
+    ]
+  },
+  {
+    "nombre": "José Arias",
+    "mensaje": "Niño Arias.",
+    "genero": "mujer",
+    "imagen": "/uploads/1748530233407-737787419.jpg",
+    "id": 1748530272294,
+    "fecha": "2025-05-29T14:51:12.294Z",
+    "replicas": [
+      {
+        "nombre": "Jjj",
+        "mensaje": "El más buscado",
+        "fecha": "2025-05-29T15:01:03.263Z",
+        "likes": 0,
+        "dislikes": 0,
+        "genero": "",
+        "emojiCounts": {}
+      }
+    ],
+    "likes": 2,
+    "dislikes": 0,
+    "emojiCounts": {
+      "😮": 1,
+      "😂": 1,
+      "👍": 1,
+      "❤️": 1
+    },
+    "hashtags": [],
+    "estrellas": [
+      4
+    ]
+  },
+  {
+    "nombre": "Jairoelduro",
+    "mensaje": "Hola",
+    "genero": "hombre",
+    "imagen": "/uploads/1748530772880-965042006.jpg",
+    "id": 1748530773996,
+    "fecha": "2025-05-29T14:59:33.996Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {
+      "👍": 3,
+      "😮": 1,
+      "❤️": 1
+    },
+    "hashtags": []
+  },
+  {
+    "nombre": "Muchacho Provinciano",
+    "mensaje": "Regalaran bocaditos 😜",
+    "genero": "hombre",
+    "id": 1748531075963,
+    "fecha": "2025-05-29T15:04:35.963Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Yo",
+    "mensaje": "Un compañero de administración que me regale una gorra por favor!!",
+    "genero": "",
+    "id": 1748531287482,
+    "fecha": "2025-05-29T15:08:07.483Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Wilsooonnn",
+    "mensaje": "Hola colegas buen proyecto",
+    "genero": "hombre",
+    "id": 1748531337502,
+    "fecha": "2025-05-29T15:08:57.502Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Wilsoooonn",
+    "mensaje": "Buen proyecto",
+    "genero": "hombre",
+    "imagen": "/uploads/1748531462888-727430577.jpg",
+    "id": 1748531463032,
+    "fecha": "2025-05-29T15:11:03.032Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {
+      "👍": 1
+    },
+    "hashtags": []
+  },
+  {
+    "nombre": "Ji",
+    "mensaje": "Halo",
+    "genero": "hombre",
+    "imagen": "/uploads/1748531776987-46862584.jpg",
+    "id": 1748531777613,
+    "fecha": "2025-05-29T15:16:17.613Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Yisus",
+    "mensaje": "🧐",
+    "genero": "mecha",
+    "imagen": "/uploads/1748532113193-106039429.jpg",
+    "id": 1748532113773,
+    "fecha": "2025-05-29T15:21:53.773Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {
+      "😂": 1
+    },
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman0",
+    "mensaje": "Nfds",
+    "genero": "",
+    "imagen": "/uploads/1748532153713-923378590.jpg",
+    "id": 1748532154336,
+    "fecha": "2025-05-29T15:22:34.336Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman21",
+    "mensaje": "Aaa",
+    "genero": "",
+    "imagen": "/uploads/1748532165418-167910734.jpg",
+    "id": 1748532169376,
+    "fecha": "2025-05-29T15:22:49.376Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman1",
+    "mensaje": "Paisajes",
+    "genero": "",
+    "imagen": "/uploads/1748532314961-994946906.jpg",
+    "id": 1748532317481,
+    "fecha": "2025-05-29T15:25:17.482Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Primicia",
+    "mensaje": "Nuevo docente",
+    "genero": "mecha",
+    "imagen": "/uploads/1748532623853-277407873.jpg",
+    "id": 1748532650907,
+    "fecha": "2025-05-29T15:30:50.907Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Lcr",
+    "mensaje": "Que tal",
+    "genero": "hombre",
+    "id": 1748534143203,
+    "fecha": "2025-05-29T15:55:43.203Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman0",
+    "mensaje": "#hola",
+    "genero": "hombre",
+    "id": 1748534158509,
+    "fecha": "2025-05-29T15:55:58.509Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": [
+      "hola"
+    ]
+  },
+  {
+    "nombre": "Whyman2",
+    "mensaje": "Atendiendo jajajaja",
+    "genero": "hombre",
+    "imagen": "/uploads/1748534467671-297078817.jpg",
+    "id": 1748534481827,
+    "fecha": "2025-05-29T16:01:21.827Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {
+      "👍": 2,
+      "❤️": 1
+    },
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman3",
+    "mensaje": "El fotografo",
+    "genero": "",
+    "imagen": "/uploads/1748534674712-683620298.jpg",
+    "id": 1748534677045,
+    "fecha": "2025-05-29T16:04:37.045Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman4",
+    "mensaje": "Explicando",
+    "genero": "",
+    "imagen": "/uploads/1748534765669-359592576.jpg",
+    "id": 1748534768013,
+    "fecha": "2025-05-29T16:06:08.013Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Yo",
+    "mensaje": "Excelente esta página de anonimato.",
+    "genero": "",
+    "id": 1748534838348,
+    "fecha": "2025-05-29T16:07:18.348Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman5",
+    "mensaje": "Posiiiii😂😂😂",
+    "genero": "",
+    "imagen": "/uploads/1748534883126-843505269.jpg",
+    "id": 1748534885665,
+    "fecha": "2025-05-29T16:08:05.665Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman2",
+    "mensaje": "https://youtu.be/UGp1Lv333BQ?si=nzlk3uhBz07HU1GY",
+    "genero": "",
+    "imagen": "/uploads/1748534945313-14969785.jpg",
+    "video": {
+      "plataforma": "youtube",
+      "videoId": "UGp1Lv333BQ",
+      "urlOriginal": "https://youtu.be/UGp1Lv333BQ"
+    },
+    "id": 1748534945784,
+    "fecha": "2025-05-29T16:09:05.784Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman3",
+    "mensaje": "https://youtu.be/UGp1Lv333BQ?si=nzlk3uhBz07HU1GY",
+    "genero": "",
+    "imagen": "/uploads/1748534949031-735419198.jpg",
+    "video": {
+      "plataforma": "youtube",
+      "videoId": "UGp1Lv333BQ",
+      "urlOriginal": "https://youtu.be/UGp1Lv333BQ"
+    },
+    "id": 1748534949623,
+    "fecha": "2025-05-29T16:09:09.623Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman4",
+    "mensaje": "https://youtu.be/UGp1Lv333BQ?si=nzlk3uhBz07HU1GY",
+    "genero": "",
+    "imagen": "/uploads/1748534955585-481932798.jpg",
+    "video": {
+      "plataforma": "youtube",
+      "videoId": "UGp1Lv333BQ",
+      "urlOriginal": "https://youtu.be/UGp1Lv333BQ"
+    },
+    "id": 1748534956758,
+    "fecha": "2025-05-29T16:09:16.758Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman2",
+    "mensaje": "https://youtu.be/UGp1Lv333BQ?si=nzlk3uhBz07HU1GY",
+    "genero": "",
+    "imagen": "/uploads/1748534955579-471413520.jpg",
+    "video": {
+      "plataforma": "youtube",
+      "videoId": "UGp1Lv333BQ",
+      "urlOriginal": "https://youtu.be/UGp1Lv333BQ"
+    },
+    "id": 1748534956766,
+    "fecha": "2025-05-29T16:09:16.766Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {
+      "👍": 1
+    },
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman3",
+    "mensaje": "https://youtu.be/UGp1Lv333BQ?si=nzlk3uhBz07HU1GY",
+    "genero": "",
+    "imagen": "/uploads/1748534955583-317288837.jpg",
+    "video": {
+      "plataforma": "youtube",
+      "videoId": "UGp1Lv333BQ",
+      "urlOriginal": "https://youtu.be/UGp1Lv333BQ"
+    },
+    "id": 1748534956784,
+    "fecha": "2025-05-29T16:09:16.784Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman0",
+    "mensaje": "El mejor estante.",
+    "genero": "",
+    "imagen": "/uploads/1748535013181-117716634.jpeg",
+    "id": 1748535033743,
+    "fecha": "2025-05-29T16:10:33.743Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {
+      "👍": 1,
+      "❤️": 1
+    },
+    "hashtags": [],
+    "estrellas": [
+      5
+    ]
+  },
+  {
+    "nombre": "Whyman6",
+    "mensaje": "Exponiendo👍👍👍",
+    "genero": "",
+    "imagen": "/uploads/1748535102685-62278516.jpg",
+    "id": 1748535105494,
+    "fecha": "2025-05-29T16:11:45.494Z",
+    "replicas": [],
+    "likes": 1,
+    "dislikes": 0,
+    "emojiCounts": {
+      "😢": 1
+    },
+    "hashtags": [],
+    "estrellas": [
+      4
+    ]
+  },
+  {
+    "nombre": "Whyman7",
+    "mensaje": "Ingeniera👍👍",
+    "genero": "",
+    "imagen": "/uploads/1748535319377-95731136.jpg",
+    "id": 1748535323717,
+    "fecha": "2025-05-29T16:15:23.717Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {
+      "👍": 1
+    },
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman8",
+    "mensaje": "👍👍👍👍",
+    "genero": "",
+    "imagen": "/uploads/1748535434684-700854124.jpg",
+    "id": 1748535437648,
+    "fecha": "2025-05-29T16:17:17.648Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Mr. Johnn",
+    "mensaje": "#Education",
+    "genero": "hombre",
+    "imagen": "/uploads/1748535448019-623276752.jpg",
+    "id": 1748535451919,
+    "fecha": "2025-05-29T16:17:31.919Z",
+    "replicas": [],
+    "likes": 2,
+    "dislikes": 0,
+    "emojiCounts": {
+      "👍": 2
+    },
+    "hashtags": [
+      "education"
+    ],
+    "estrellas": [
+      5,
+      2,
+      2,
+      3,
+      3,
+      5,
+      5
+    ]
+  },
+  {
+    "nombre": "Whyman3",
+    "mensaje": "El más cargoso del salón.",
+    "genero": "",
+    "imagen": "/uploads/1748535459691-645501431.jpeg",
+    "id": 1748535462875,
+    "fecha": "2025-05-29T16:17:42.875Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {
+      "😂": 1
+    },
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman0",
+    "mensaje": "#Education",
+    "genero": "hombre",
+    "imagen": "/uploads/1748535549009-154835653.jpg",
+    "id": 1748535552724,
+    "fecha": "2025-05-29T16:19:12.724Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": [
+      "education"
+    ]
+  },
+  {
+    "nombre": "Whyman9",
+    "mensaje": "Full chat ajjajjj😂😂",
+    "genero": "",
+    "imagen": "/uploads/1748535597049-734772647.jpg",
+    "id": 1748535599308,
+    "fecha": "2025-05-29T16:19:59.308Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {
+      "👍": 1,
+      "❤️": 1
+    },
+    "hashtags": [],
+    "estrellas": [
+      3,
+      2
+    ]
+  },
+  {
+    "nombre": "Whyman2",
+    "mensaje": "#education",
+    "genero": "hombre",
+    "imagen": "/uploads/1748535638490-129801294.jpg",
+    "id": 1748535641313,
+    "fecha": "2025-05-29T16:20:41.313Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": [
+      "education"
+    ]
+  },
+  {
+    "nombre": "Whyman10",
+    "mensaje": "Ya tengo hambre😞😞😞😞",
+    "genero": "",
+    "imagen": "/uploads/1748535738494-540126475.jpg",
+    "id": 1748535740992,
+    "fecha": "2025-05-29T16:22:20.992Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman5",
+    "mensaje": "https://youtu.be/qhg2fbYdIKk?si=k_A35rEecMEZbDxu",
+    "genero": "",
+    "video": {
+      "plataforma": "youtube",
+      "videoId": "qhg2fbYdIKk",
+      "urlOriginal": "https://youtu.be/qhg2fbYdIKk"
+    },
+    "id": 1748535811789,
+    "fecha": "2025-05-29T16:23:31.789Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman0",
+    "mensaje": "https://youtu.be/IY4Rs-teLjA?si=duG65Yv9p1cMln5A",
+    "genero": "",
+    "video": {
+      "plataforma": "youtube",
+      "videoId": "IY4Rs-teLjA",
+      "urlOriginal": "https://youtu.be/IY4Rs-teLjA"
+    },
+    "id": 1748537556464,
+    "fecha": "2025-05-29T16:52:36.464Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman1",
+    "mensaje": "https://youtu.be/IY4Rs-teLjA?si=duG65Yv9p1cMln5A",
+    "genero": "",
+    "video": {
+      "plataforma": "youtube",
+      "videoId": "IY4Rs-teLjA",
+      "urlOriginal": "https://youtu.be/IY4Rs-teLjA"
+    },
+    "id": 1748537559676,
+    "fecha": "2025-05-29T16:52:39.676Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman0",
+    "mensaje": "Buenas tarses",
+    "genero": "",
+    "id": 1748537607835,
+    "fecha": "2025-05-29T16:53:27.835Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman2",
+    "mensaje": "https://youtu.be/DIMbm7loBSg?si=bFEYiFbvtdWEY5FK",
+    "genero": "",
+    "video": {
+      "plataforma": "youtube",
+      "videoId": "DIMbm7loBSg",
+      "urlOriginal": "https://youtu.be/DIMbm7loBSg"
+    },
+    "id": 1748537659392,
+    "fecha": "2025-05-29T16:54:19.392Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman1",
+    "mensaje": "Exponiendo",
+    "genero": "",
+    "imagen": "/uploads/1748537681484-634921205.jpg",
+    "id": 1748537685634,
+    "fecha": "2025-05-29T16:54:45.634Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman3",
+    "mensaje": "Hola",
+    "genero": "",
+    "imagen": "/uploads/1748537822013-856205283.jpg",
+    "id": 1748537841651,
+    "fecha": "2025-05-29T16:57:21.651Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman3",
+    "mensaje": "Web exponiendo 🥇👍👍",
+    "genero": "",
+    "imagen": "/uploads/1748537930541-534285649.jpg",
+    "id": 1748537932187,
+    "fecha": "2025-05-29T16:58:52.187Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman4",
+    "mensaje": "Alumnos DVG👍👍🥇🥇",
+    "genero": "",
+    "imagen": "/uploads/1748538242159-835208335.jpg",
+    "id": 1748538251989,
+    "fecha": "2025-05-29T17:04:11.989Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman6",
+    "mensaje": "😀😀😀😀🥇🥇🥇",
+    "genero": "",
+    "imagen": "/uploads/1748538423984-306282051.jpg",
+    "id": 1748538425626,
+    "fecha": "2025-05-29T17:07:05.626Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman7",
+    "mensaje": "DVG👍👍👍",
+    "genero": "",
+    "imagen": "/uploads/1748538595621-173182788.jpg",
+    "id": 1748538597563,
+    "fecha": "2025-05-29T17:09:57.563Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman8",
+    "mensaje": "Amiga de mariaangel",
+    "genero": "",
+    "imagen": "/uploads/1748539001511-510737546.jpg",
+    "id": 1748539005611,
+    "fecha": "2025-05-29T17:16:45.611Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman10",
+    "mensaje": "Exposición web1",
+    "genero": "",
+    "imagen": "/uploads/1748539266220-937960396.jpg",
+    "id": 1748539268287,
+    "fecha": "2025-05-29T17:21:08.287Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {
+      "👍": 1
+    },
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman6",
+    "mensaje": "K",
+    "genero": "",
+    "imagen": "/uploads/1748539271370-589772544.jpg",
+    "id": 1748539273143,
+    "fecha": "2025-05-29T17:21:13.143Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman11",
+    "mensaje": "Exposición primero web , red social sin rostro",
+    "genero": "",
+    "imagen": "/uploads/1748539485860-165134878.jpg",
+    "id": 1748539500476,
+    "fecha": "2025-05-29T17:25:00.476Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {
+      "👍": 1
+    },
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman1",
+    "mensaje": "J",
+    "genero": "",
+    "imagen": "/uploads/1748541033318-337453267.jpg",
+    "id": 1748541036656,
+    "fecha": "2025-05-29T17:50:36.656Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman0",
+    "mensaje": "j",
+    "genero": "",
+    "id": 1748541077752,
+    "fecha": "2025-05-29T17:51:17.752Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Sixnine",
+    "mensaje": "Fondo",
+    "genero": "mecha",
+    "imagen": "/uploads/1748541467244-335565374.jpg",
+    "id": 1748541489052,
+    "fecha": "2025-05-29T17:58:09.052Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Sixnine",
+    "mensaje": "Fondo",
+    "genero": "mecha",
+    "imagen": "/uploads/1748541489062-751912976.jpg",
+    "id": 1748541489261,
+    "fecha": "2025-05-29T17:58:09.261Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman2",
+    "mensaje": "Para el calor jajajaja",
+    "genero": "",
+    "imagen": "/uploads/1748541968861-306452573.jpg",
+    "id": 1748541971144,
+    "fecha": "2025-05-29T18:06:11.144Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {
+      "👍": 1,
+      "🤔": 1
+    },
+    "hashtags": [],
+    "estrellas": [
+      5,
+      5,
+      2,
+      1,
+      5
+    ]
+  },
+  {
+    "nombre": "Lia",
+    "mensaje": "Solicito gente para hacerle Mecanofilia a un Volkswagen escarabajo\r\n¿Quien se apunta?",
+    "genero": "mecha",
+    "id": 1748552941935,
+    "fecha": "2025-05-29T21:09:01.935Z",
+    "replicas": [
+      {
+        "nombre": "Parker",
+        "mensaje": "Tu ta loco!",
+        "fecha": "2025-05-29T21:31:19.646Z",
+        "likes": 0,
+        "dislikes": 0,
+        "genero": "",
+        "emojiCounts": {}
+      },
+      {
+        "nombre": "aa",
+        "mensaje": "aa",
+        "fecha": "2025-05-29T21:42:27.254Z",
+        "imagen": "/uploads/1748554947246-635302499.webp",
+        "likes": 0,
+        "dislikes": 0,
+        "genero": "",
+        "emojiCounts": {}
+      }
+    ],
+    "likes": 1,
+    "dislikes": 0,
+    "emojiCounts": {
+      "😮": 1,
+      "🤔": 1
+    },
+    "hashtags": []
+  },
+  {
+    "nombre": "crikoso el maloso",
+    "mensaje": "manila",
+    "genero": "hombre",
+    "id": 1748580489200,
+    "fecha": "2025-05-30T04:48:09.200Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {
+      "😢": 1
+    },
+    "hashtags": []
+  },
+  {
+    "nombre": "mitomana",
+    "mensaje": "conferencia",
+    "genero": "mujer",
+    "id": 1748580517252,
+    "fecha": "2025-05-30T04:48:37.252Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {
+      "🤔": 1
+    },
+    "hashtags": []
+  },
+  {
+    "nombre": "narciso_el_maciso",
+    "mensaje": "soy un bot.",
+    "genero": "mecha",
+    "id": 1748580580238,
+    "fecha": "2025-05-30T04:49:40.238Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {
+      "😮": 0,
+      "😂": 1
+    },
+    "hashtags": []
+  },
+  {
+    "nombre": "CHUPAMIÑÑO",
+    "mensaje": "On fait ce qu'on peut",
+    "genero": "mecha",
+    "id": 1758734575210,
+    "fecha": "2025-09-24T17:22:55.210Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {
+      "🤔": 1
+    },
+    "hashtags": []
+  },
+  {
+    "nombre": "Zapopeta",
+    "mensaje": "¿Por que los de piel blanca viven en el norte y los de piel morena en el sur, sea cual sea el continente?",
+    "genero": "mecha",
+    "id": 1758737239984,
+    "fecha": "2025-09-24T18:07:19.984Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {
+      "😮": 1
+    },
+    "hashtags": []
+  },
+  {
+    "nombre": "Bot0",
+    "mensaje": "Capacitación con los chapas así dicen las lenguas",
+    "genero": "mecha",
+    "id": 1758754124318,
+    "fecha": "2025-09-24T22:48:44.318Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman0",
+    "mensaje": "Arreglen el botón de salir de la imagen mmvrgs",
+    "genero": "hombre",
+    "id": 1758755393260,
+    "fecha": "2025-09-24T23:09:53.260Z",
+    "replicas": [],
+    "likes": 1,
+    "dislikes": 0,
+    "emojiCounts": {
+      "😂": 1
+    },
+    "hashtags": [],
+    "estrellas": [
+      5
+    ]
+  },
+  {
+    "nombre": "lalalala",
+    "mensaje": "no se wajajaj",
+    "genero": "hombre",
+    "id": 1758756312250,
+    "fecha": "2025-09-24T23:25:12.250Z",
+    "replicas": [],
+    "likes": 1,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
+  },
+  {
+    "nombre": "Whyman0",
+    "mensaje": "Ju",
+    "genero": "",
+    "imagen": "/uploads/1758756820444-199564432.jpg",
+    "id": 1758756821259,
+    "fecha": "2025-09-24T23:33:41.259Z",
+    "replicas": [],
+    "likes": 1,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
   }
 ]
