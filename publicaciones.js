@@ -92,8 +92,8 @@ async function uploadImage(file) {
     const fileName = `${uniqueSuffix}${ext}`;
     const filePath = `public/uploads/${fileName}`;
 
-    // Convertir el buffer del archivo a base64
-    const content = file.buffer.toString('base64');
+    // Convertir el buffer del archivo a base64 de forma explícita para evitar corrupción
+    const content = Buffer.from(file.buffer).toString('base64');
 
     await octokit.repos.createOrUpdateFileContents({
       owner: GITHUB_OWNER,
