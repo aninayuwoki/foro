@@ -1563,7 +1563,9 @@
     "replicas": [],
     "likes": 0,
     "dislikes": 0,
-    "emojiCounts": {},
+    "emojiCounts": {
+      "😂": 1
+    },
     "hashtags": []
   },
   {
