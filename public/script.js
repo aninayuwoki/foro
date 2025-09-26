@@ -20,6 +20,44 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+  const modal = document.getElementById('modal-terminos');
+  const btnAceptar = document.getElementById('btn-aceptar-terminos');
+
+  // Siempre asigna el evento al botón
+  if (btnAceptar) {
+    btnAceptar.addEventListener('click', function () {
+      localStorage.setItem('terminosAceptados', 'true');
+      modal.style.display = 'none';
+      iniciarAplicacion();
+    });
+  }
+
+  // Mostrar el modal si no se aceptó
+  if (!localStorage.getItem('terminosAceptados')) {
+    modal.style.display = 'flex';
+  } else {
+    modal.style.display = 'none'; // Por si quedó visible por error
+    iniciarAplicacion();
+  }
+
+  // Nuevo: Selector de género por íconos
+  const generoBotones = document.querySelectorAll('.genero-btn');
+  const generoInput = document.getElementById('genero');
+  if (generoBotones.length && generoInput) {
+    generoBotones.forEach(btn => {
+      btn.addEventListener('click', function () {
+        generoInput.value = this.dataset.genero;
+
+        // Limpiar selección anterior
+        generoBotones.forEach(b => b.classList.remove('seleccionado'));
+        this.classList.add('seleccionado');
+      });
+    });
+  }
+});
+
+
 function iniciarAplicacion() {
   cargarPublicacionesRecientes();
   cargarHashtags();
@@ -33,7 +71,7 @@ let imagenSeleccionada = null;
 
 const EMOJIS = ['👍', '😂', '❤️', '🤔', '😢', '😮'];
 
-// Configurar términos y condiciones
+// terminos y condiciones
 function configurarTerminosYCondiciones() {
   if (document.getElementById('acepto-terminos')) {
     return;
@@ -58,7 +96,7 @@ function configurarTerminosYCondiciones() {
     </div>
   `;
 
-  // Insertar en el formulario
+  // insertar terminos en el formulario
   formPublicacion.insertBefore(contenedorTerminos, submitButton);
 
   // Deshabilitar el botón inicialmente
@@ -548,8 +586,9 @@ function generarNombrePorDefecto(genero) {
 document.getElementById('imagen').addEventListener('change', function(e) {
   const archivo = e.target.files[0];
   if (!archivo) return;
-  if (archivo.size > 2 * 1024 * 1024) {
-    alert('La imagen es demasiado grande. El tamaño máximo es 2MB.');
+  if (archivo.size > 20 * 1024 * 1024) {
+    alert('La imagen es demasiado grande. El tamaño máximo es 20MB.');
+
     this.value = '';
     return;
   }
@@ -705,8 +744,8 @@ function gestionarVotos() {
 function manejarImagenRespuesta(e, pubId) {
   const archivo = e.target.files[0];
   if (!archivo) return;
-  if (archivo.size > 2 * 1024 * 1024) {
-    alert('La imagen es demasiado grande. El tamaño máximo es 2MB.');
+  if (archivo.size > 20 * 1024 * 1024) {
+    alert('La imagen es demasiado grande. El tamaño máximo es 20MB.');
     e.target.value = ''; return;
   }
   if (!archivo.type.startsWith('image/')) {

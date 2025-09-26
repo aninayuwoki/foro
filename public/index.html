@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Foro de intercambio entre estudiantes - Publicaciones y anuncios sin necesidad de registro">
-  <title>RSSR - Red Social Sin Rostro </title>
+  <title> Confestituto  </title>
   <link rel="icon" href="PNGASD.ico" type="image/x-icon">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,37 +20,39 @@
     <div class="container">
       <h1>
        <img src="PNGASD.ico" alt="Logo" width="24" height="24" class="logo-icon">
-       Red Social Sin Rostro
+       Confestituto
       </h1>
 
-      <p class="site-tagline">Espacio libre para compartir ideas y anuncios</p>
+      <p class="site-tagline">Espacio libre para compartir ideas , anuncios y confesiones de todo tipo</p>
     </div>
   </header>
 
   <main class="container">
     <section class="nueva-publicacion">
-      <h2 class="section-title">Nueva Publicación</h2>
+      <h2 class="section-title">Confiesate algo</h2>
        <form id="form-publicacion" enctype="multipart/form-data">
 
   
   <div class="form-group">
-    <label for="nombre">Tu nombre o apodo</label>
+    <label for="nombre">Tu nombre (o dejalo en blanco)</label>
     <input type="text" id="nombre" placeholder="Whyman/Whygirl" aria-label="Tu nombre o apodo">
   </div>
 
   <div class="form-group">
-    <label for="genero">Género</label>
-    <select id="genero" aria-label="Selecciona tu género">
-      <option value="">-- Prefiero no decirlo --</option>
-      <option value="hombre">Hombre</option>
-      <option value="mujer">Mujer</option>
-      <option value="mecha">Mecha</option>
-    </select>
+    <label>Género</label>
+    <div class="genero-iconos">
+      <button type="button" class="genero-btn" data-genero="hombre" title="Hombre">♂</button>
+      <button type="button" class="genero-btn" data-genero="mujer" title="Mujer">♀</button>
+      <button type="button" class="genero-btn" data-genero="mecha" title="Mecha 🤖">🤖</button>
+    </div>
+    <input type="hidden" name="genero" id="genero" value="">
   </div>
 
+
+
   <div class="form-group">
-    <label for="mensaje">Tu mensaje</label>
-    <textarea id="mensaje" placeholder="¿Qué ofrecés o necesitás? Usa #hashtags para categorizar" required aria-label="Contenido del mensaje"></textarea>
+    <label for="mensaje">Confesión</label>
+    <textarea id="mensaje" placeholder="Di sin miedo cualquier cosa que quieras decir" required aria-label="Contenido de la confesión"></textarea>
   </div>
 
   <div class="form-group imagen-container">
@@ -105,7 +107,7 @@
 
   <footer class="site-footer">
     <div class="container">
-      <p>RSSR - Red Social Sin Rostro, Libre y Transparente © 2025</p>
+      <p>Confestituto, Libre y Transparente © 2025</p>
       <p class="small">Todos tienen derecho al anonimato.</p>
       <p><a href="index_ruleta.html" class="ruleta-link">¿</a></p>
     </div>
@@ -123,7 +125,7 @@
   <div id="modal-terminos" class="modal-terminos">
     <div class="modal-contenido">
       <h2>📢 Normas de uso y advertencias</h2>
-      <p><strong>Antes de usar el foro, por favor lea con atención:</strong></p>
+      <p><strong>Antes de usar este foro, por favor lea con atención:</strong></p>
       <ul style="text-align: left; padding-left: 1.2rem;">
         <li>Este foro es anónimo, pero <strong>todo contenido puede ser revisado</strong> y eliminado si infringe las reglas.</li>
         <li><strong>No publiques contenido ofensivo, violento, discriminatorio ni ilegal.</strong></li>
