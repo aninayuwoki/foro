@@ -11,28 +11,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Luego muestra el modal si no se aceptó
-  if (!localStorage.getItem('terminosAceptados')) {
-    modal.style.display = 'flex';
-  } else {
-    modal.style.display = 'none'; // Por si quedó visible por error
-    iniciarAplicacion();
-  }
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-  const modal = document.getElementById('modal-terminos');
-  const btnAceptar = document.getElementById('btn-aceptar-terminos');
-
-  // Siempre asigna el evento al botón
-  if (btnAceptar) {
-    btnAceptar.addEventListener('click', function () {
-      localStorage.setItem('terminosAceptados', 'true');
-      modal.style.display = 'none';
-      iniciarAplicacion();
-    });
-  }
-
   // Mostrar el modal si no se aceptó
   if (!localStorage.getItem('terminosAceptados')) {
     modal.style.display = 'flex';
@@ -86,7 +64,7 @@ function configurarTerminosYCondiciones() {
     <div class="terminos-checkbox-grupo">
       <input type="checkbox" id="acepto-terminos" name="acepto-terminos" required>
       <label for="acepto-terminos" class="terminos-label">
-        Asegurese de leer los <a href="terminos.html" class="enlace-terminos">términos y condiciones</a> 
+        Asegurese de leer los <a href="terminos.html" class="enlace-terminos">términos y condiciones</a>
         antes de marcar la casilla
         <span class="terminos-obligatorio">*</span>
       </label>
@@ -227,7 +205,7 @@ function mostrarPublicaciones(publicaciones) {
     const promedioEstrellas = pub.estrellas && pub.estrellas.length
       ? (pub.estrellas.reduce((a, b) => a + b, 0) / pub.estrellas.length).toFixed(1)
       : 'Sin puntuación';
-    
+
     const votosHTML = `
       <div class="publicacion-footer">
         <div class="votacion">
@@ -238,14 +216,14 @@ function mostrarPublicaciones(publicaciones) {
             ▼ <span class="contador-dislike">${pub.dislikes || 0}</span>
           </button>
         </div>
-        <div class="publicaciones-acciones"> 
+        <div class="publicaciones-acciones">
           ⭐ Promedio: ${promedioEstrellas} / 5
           <br>
           <span class="votar-estrellas" data-id="${pub.id}">
             Calificar:
             ${
               (() => {
-                const key_estrellas = `votado_estrellas_${pub.id}`; 
+                const key_estrellas = `votado_estrellas_${pub.id}`;
                 const puntuacion_estrellas = localStorage.getItem(key_estrellas) ? parseInt(localStorage.getItem(key_estrellas)) : 0;
                 return [1, 2, 3, 4, 5].map(i =>
                   `<span class="estrella ${i <= puntuacion_estrellas ? 'votada' : ''}" data-id="${pub.id}" data-score="${i}">★</span>`
@@ -263,13 +241,13 @@ function mostrarPublicaciones(publicaciones) {
 
     // MODIFICACIÓN PRINCIPAL: Usar datos del servidor para los emojis
     let emojiReactionsHTML = '<div class="emoji-reactions">';
-    EMOJIS.forEach(emoji => { 
+    EMOJIS.forEach(emoji => {
       const localStorageKey = `reacted_emoji_${pub.id}_${emoji}`;
       const isReacted = localStorage.getItem(localStorageKey) === 'true';
 
-      const currentEmojiCount = (pub.emojiCounts && typeof pub.emojiCounts[emoji] !== 'undefined') 
-        ? pub.emojiCounts[emoji] 
-        : 0; 
+      const currentEmojiCount = (pub.emojiCounts && typeof pub.emojiCounts[emoji] !== 'undefined')
+        ? pub.emojiCounts[emoji]
+        : 0;
 
       emojiReactionsHTML += `
         <button class="emoji-reaction-btn ${isReacted ? 'selected-emoji' : ''}" data-post-id="${pub.id}" data-emoji="${emoji}">
@@ -339,7 +317,7 @@ function mostrarPublicaciones(publicaciones) {
         </div>
         <button class="btn btn-primary" onclick="enviarRespuesta(${pub.id})" disabled id="btn-enviar-resp-${pub.id}">Enviar respuesta</button>
       </div>
-    `; 
+    `;
 
     contenedor.appendChild(div);
 
@@ -353,7 +331,7 @@ function mostrarPublicaciones(publicaciones) {
     // Configurar checkbox de términos para respuestas
     const checkboxResp = document.getElementById(`acepto-terminos-resp-${pub.id}`);
     const btnEnviarResp = document.getElementById(`btn-enviar-resp-${pub.id}`);
-    
+
     if (checkboxResp && btnEnviarResp) {
       checkboxResp.addEventListener('change', function() {
         btnEnviarResp.disabled = !this.checked;
@@ -378,7 +356,7 @@ function mostrarPublicaciones(publicaciones) {
     estrella.addEventListener('click', async function () {
       const pubId = this.getAttribute('data-id');
       const valor = parseInt(this.getAttribute('data-score'));
-      const key_estrellas_click = `votado_estrellas_${pubId}`; 
+      const key_estrellas_click = `votado_estrellas_${pubId}`;
       if (localStorage.getItem(key_estrellas_click)) {
         alert('Ya calificaste esta publicación.');
         return;
@@ -422,12 +400,12 @@ function mostrarPublicacionDetallada(pub, contenedor) {
     </div>`;
 
   let emojiReactionsHTML = '<div class="emoji-reactions">';
-  EMOJIS.forEach(emoji => { 
+  EMOJIS.forEach(emoji => {
     const localStorageKey = `reacted_emoji_${pub.id}_${emoji}`;
     const isReacted = localStorage.getItem(localStorageKey) === 'true';
-    const currentEmojiCount = (pub.emojiCounts && typeof pub.emojiCounts[emoji] !== 'undefined') 
-      ? pub.emojiCounts[emoji] 
-      : 0; 
+    const currentEmojiCount = (pub.emojiCounts && typeof pub.emojiCounts[emoji] !== 'undefined')
+      ? pub.emojiCounts[emoji]
+      : 0;
 
     emojiReactionsHTML += `
       <button class="emoji-reaction-btn ${isReacted ? 'selected-emoji' : ''}" data-post-id="${pub.id}" data-emoji="${emoji}">
@@ -521,7 +499,7 @@ function mostrarPublicacionDetallada(pub, contenedor) {
   // Configurar checkbox de términos para respuestas en vista detallada
   const checkboxResp = document.getElementById(`acepto-terminos-resp-${pub.id}`);
   const btnEnviarResp = document.getElementById(`btn-enviar-resp-${pub.id}`);
-  
+
   if (checkboxResp && btnEnviarResp) {
     checkboxResp.addEventListener('change', function() {
       btnEnviarResp.disabled = !this.checked;
@@ -555,10 +533,10 @@ async function cargarPublicaciones() {
   const res = await fetch(url);
   const publicaciones = await res.json();
   publicaciones.reverse(); // Reverse the order of posts for "Recientes"
-  mostrarPublicaciones(publicaciones); 
+  mostrarPublicaciones(publicaciones);
 }
 
-async function cargarPublicacionesOrdenadasPorVotos() { 
+async function cargarPublicacionesOrdenadasPorVotos() {
   const res = await fetch('/api/publicaciones/mas-votadas');
   const publicaciones = await res.json();
   mostrarPublicaciones(publicaciones);
@@ -618,27 +596,31 @@ function removerImagen() {
 }
 
 function configurarModalImagen() {
-  if (!document.querySelector('.imagen-modal')) {
-    const modal = document.createElement('div');
-    modal.className = 'imagen-modal';
-    modal.innerHTML = `
-      <div class="cerrar-modal">✕</div>
-      <div class="imagen-modal-contenido">
-        <img src="" alt="Imagen ampliada">
-      </div>
-    `;
-    document.body.appendChild(modal);
-    modal.addEventListener('click', function() {
-      this.style.display = 'none';
-    });
-  }
+  const modal = document.querySelector('.imagen-modal');
+  if (!modal) return;
+
+  // Usar delegación de eventos en el modal mismo
+  modal.addEventListener('click', function(event) {
+    // Si se hizo clic en el backdrop o en el botón de cerrar
+    if (event.target.classList.contains('modal-backdrop') || event.target.classList.contains('cerrar-modal')) {
+      cerrarModalImagen();
+    }
+  });
 }
 
 function abrirImagenModal(src) {
   const modal = document.querySelector('.imagen-modal');
+  if (!modal) return;
+
   const img = modal.querySelector('img');
   img.src = src;
-  modal.style.display = 'flex';
+
+  // Usar la animación si está disponible
+  if (window.forumAnimationsInstance) {
+    window.forumAnimationsInstance.animateImageModal(modal);
+  } else {
+    modal.style.display = 'flex';
+  }
 }
 
 function crearReproductorVideo(videoInfo) {
@@ -648,16 +630,16 @@ function crearReproductorVideo(videoInfo) {
     case 'youtube':
       reproductorHTML = `
         <div class="video-contenedor">
-          <iframe width="100%" height="315" src="https://www.youtube.com/embed/${videoInfo.videoId}" 
-            frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          <iframe width="100%" height="315" src="https://www.youtube.com/embed/${videoInfo.videoId}"
+            frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen loading="lazy"></iframe>
         </div>`;
       break;
     case 'vimeo':
       reproductorHTML = `
         <div class="video-contenedor">
-          <iframe width="100%" height="315" src="https://player.vimeo.com/video/${videoInfo.videoId}" 
-            frameborder="0" allow="autoplay; fullscreen; picture-in-picture" 
+          <iframe width="100%" height="315" src="https://player.vimeo.com/video/${videoInfo.videoId}"
+            frameborder="0" allow="autoplay; fullscreen; picture-in-picture"
             allowfullscreen loading="lazy"></iframe>
         </div>`;
       break;
@@ -913,10 +895,10 @@ function actualizarEstrellas(pubId, puntuacion) {
 // function crearElementoRespuesta(datos) { /* ... */ }
 
 function agregarPublicacion(datos) {
-    // const nuevaPublicacion = crearElementoPublicacion(datos); 
-    // const contenedorPublicaciones = document.getElementById('publicaciones'); 
+    // const nuevaPublicacion = crearElementoPublicacion(datos);
+    // const contenedorPublicaciones = document.getElementById('publicaciones');
     // contenedorPublicaciones.appendChild(nuevaPublicacion);
-    // if (window.forumAnimationsInstance && nuevaPublicacion) { 
+    // if (window.forumAnimationsInstance && nuevaPublicacion) {
     //     window.forumAnimationsInstance.animateNewPost(nuevaPublicacion);
     // }
     // if (window.forumAnimationsInstance) {
@@ -926,16 +908,16 @@ function agregarPublicacion(datos) {
 }
 
 function agregarRespuesta(respuestaData, publicacionId) {
-    // const nuevaRespuesta = crearElementoRespuesta(respuestaData); 
-    // const contenedorRespuestas = document.getElementById(`respuestas-${publicacionId}`); 
+    // const nuevaRespuesta = crearElementoRespuesta(respuestaData);
+    // const contenedorRespuestas = document.getElementById(`respuestas-${publicacionId}`);
     // contenedorRespuestas.appendChild(nuevaRespuesta);
-    // if (window.forumAnimationsInstance && nuevaRespuesta) { 
+    // if (window.forumAnimationsInstance && nuevaRespuesta) {
     //     window.forumAnimationsInstance.animateNewReply(nuevaRespuesta);
     // }
     console.warn("agregarRespuesta de ejemplo llamada. Necesita implementación real si se usa o eliminarla.");
 }
 
-function manejarVotacionEstrellas(estrellas, rating) { 
+function manejarVotacionEstrellas(estrellas, rating) {
     if (window.forumAnimationsInstance) {
         window.forumAnimationsInstance.animateStarRating(estrellas, rating);
     }
@@ -949,8 +931,8 @@ document.addEventListener('click', function(e) {
     }
 });
 
-function cerrarModalImagen() { 
-    const modal = document.querySelector('.imagen-modal'); 
+function cerrarModalImagen() {
+    const modal = document.querySelector('.imagen-modal');
     if (!modal) return;
     if (window.forumAnimationsInstance) {
         window.forumAnimationsInstance.closeImageModal(modal);
@@ -959,14 +941,14 @@ function cerrarModalImagen() {
     }
 }
 
-function aplicarFiltro(filtro) { 
-    const filtroActivo = document.querySelector('.filtro-activo'); 
+function aplicarFiltro(filtro) {
+    const filtroActivo = document.querySelector('.filtro-activo');
     if (filtroActivo && window.forumAnimationsInstance) {
         window.forumAnimationsInstance.animateActiveFilter(filtroActivo);
     }
 }
 
-function seleccionarHashtag(hashtagElement) { 
+function seleccionarHashtag(hashtagElement) {
     if (window.forumAnimationsInstance) {
         window.forumAnimationsInstance.animateHashtagSelection(hashtagElement);
     }
