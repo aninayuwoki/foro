@@ -597,21 +597,30 @@ function removerImagen() {
 
 function configurarModalImagen() {
   const modal = document.querySelector('.imagen-modal');
-  if (modal) {
-    const backdrop = modal.querySelector('.modal-backdrop');
-    const closeButton = modal.querySelector('.cerrar-modal');
+  if (!modal) return;
 
-    // Usar la función `cerrarModalImagen` que ya existe y maneja la animación
-    backdrop.addEventListener('click', cerrarModalImagen);
-    closeButton.addEventListener('click', cerrarModalImagen);
-  }
+  // Usar delegación de eventos en el modal mismo
+  modal.addEventListener('click', function(event) {
+    // Si se hizo clic en el backdrop o en el botón de cerrar
+    if (event.target.classList.contains('modal-backdrop') || event.target.classList.contains('cerrar-modal')) {
+      cerrarModalImagen();
+    }
+  });
 }
 
 function abrirImagenModal(src) {
   const modal = document.querySelector('.imagen-modal');
+  if (!modal) return;
+
   const img = modal.querySelector('img');
   img.src = src;
-  modal.style.display = 'flex';
+
+  // Usar la animación si está disponible
+  if (window.forumAnimationsInstance) {
+    window.forumAnimationsInstance.animateImageModal(modal);
+  } else {
+    modal.style.display = 'flex';
+  }
 }
 
 function crearReproductorVideo(videoInfo) {
