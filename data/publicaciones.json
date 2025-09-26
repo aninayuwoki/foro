@@ -1566,7 +1566,10 @@
     "emojiCounts": {
       "😂": 1
     },
-    "hashtags": []
+    "hashtags": [],
+    "estrellas": [
+      5
+    ]
   },
   {
     "nombre": "Bot1",
