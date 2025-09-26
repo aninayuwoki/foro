@@ -1,4 +1,5 @@
 const { Octokit } = require('@octokit/rest');
+const path = require('path');
 
 // --- Configuración de GitHub ---
 // Es IMPERATIVO usar variables de entorno para estos valores en producción.
@@ -74,7 +75,44 @@ async function updatePublicaciones(data, sha) {
   }
 }
 
+/**
+ * Sube una imagen a la carpeta public/uploads en GitHub.
+ * @param {object} file - El objeto de archivo de multer (req.file).
+ * @returns {Promise<string>} - La ruta de la imagen en el repositorio.
+ */
+async function uploadImage(file) {
+  if (!file) {
+    throw new Error('No se proporcionó ningún archivo para subir.');
+  }
+
+  try {
+    // Generar un nombre de archivo único
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    const ext = path.extname(file.originalname);
+    const fileName = `${uniqueSuffix}${ext}`;
+    const filePath = `public/uploads/${fileName}`;
+
+    // Convertir el buffer del archivo a base64
+    const content = file.buffer.toString('base64');
+
+    await octokit.repos.createOrUpdateFileContents({
+      owner: GITHUB_OWNER,
+      repo: GITHUB_REPO,
+      path: filePath,
+      message: `Carga de imagen: ${fileName} - ${new Date().toISOString()}`,
+      content: content,
+    });
+
+    // Devolver la ruta relativa para guardarla en publicaciones.json
+    return `/uploads/${fileName}`;
+  } catch (error) {
+    console.error('Error al subir la imagen a GitHub:', error);
+    throw new Error('No se pudo subir la imagen a GitHub.');
+  }
+}
+
 module.exports = {
   getPublicaciones,
   updatePublicaciones,
+  uploadImage,
 };
