@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
 const { getPublicaciones, updatePublicaciones, uploadImage } = require('./publicaciones');
+const { Mutex } = require('async-mutex');
 
 // --- Verificación de variables de entorno ---
 if (!process.env.GITHUB_TOKEN || !process.env.GITHUB_OWNER || !process.env.GITHUB_REPO) {
@@ -11,6 +12,7 @@ if (!process.env.GITHUB_TOKEN || !process.env.GITHUB_OWNER || !process.env.GITHU
 }
 
 const app = express();
+const fileMutex = new Mutex(); // Crear una instancia del mutex
 const PORT = process.env.PORT || 3000;
 
 // Configuracion inicial
@@ -109,29 +111,37 @@ app.get('/api/publicaciones/mas-votadas', async (req, res) => {
 
 app.post('/api/publicaciones/:id/estrella', async (req, res) => {
   try {
-    const { data, sha } = await getPublicaciones();
-    const id = parseInt(req.params.id);
-    const { valor } = req.body;
+    await fileMutex.runExclusive(async () => {
+      const { data, sha } = await getPublicaciones();
+      const id = parseInt(req.params.id);
+      const { valor } = req.body;
 
-    if (![1, 2, 3, 4, 5].includes(valor)) {
-      return res.status(400).json({ error: 'Valor de estrella inválido. Debe ser entre 1 y 5.' });
-    }
+      if (![1, 2, 3, 4, 5].includes(valor)) {
+        res.status(400).json({ error: 'Valor de estrella inválido. Debe ser entre 1 y 5.' });
+        return;
+      }
 
-    const publicacion = data.find(pub => pub.id === id);
-    if (!publicacion) return res.status(404).json({ error: 'Publicación no encontrada' });
+      const publicacion = data.find(pub => pub.id === id);
+      if (!publicacion) {
+        res.status(404).json({ error: 'Publicación no encontrada' });
+        return;
+      }
 
-    if (!Array.isArray(publicacion.estrellas)) publicacion.estrellas = [];
-    publicacion.estrellas.push(valor);
+      if (!Array.isArray(publicacion.estrellas)) publicacion.estrellas = [];
+      publicacion.estrellas.push(valor);
 
-    await updatePublicaciones(data, sha);
-    res.json({
-      mensaje: 'Estrella agregada con éxito',
-      total: publicacion.estrellas.length,
-      promedio: (publicacion.estrellas.reduce((a, b) => a + b, 0) / publicacion.estrellas.length).toFixed(2)
+      await updatePublicaciones(data, sha);
+      res.json({
+        mensaje: 'Estrella agregada con éxito',
+        total: publicacion.estrellas.length,
+        promedio: (publicacion.estrellas.reduce((a, b) => a + b, 0) / publicacion.estrellas.length).toFixed(2)
+      });
     });
   } catch (error) {
     console.error('Error al agregar estrella:', error);
-    res.status(500).json({ error: 'Error al agregar la puntuación' });
+    if (!res.headersSent) {
+      res.status(500).json({ error: 'Error al agregar la puntuación' });
+    }
   }
 });
 
@@ -152,100 +162,118 @@ app.get('/api/hashtags', async (req, res) => {
 
 app.post('/api/publicaciones', upload.single('imagen'), async (req, res) => {
   try {
-    const { data, sha } = await getPublicaciones();
-    const nueva = req.body;
+    await fileMutex.runExclusive(async () => {
+      const { data, sha } = await getPublicaciones();
+      const nueva = req.body;
 
-    // Si se sube una imagen, guardarla en GitHub y obtener la URL
-    if (req.file) {
-      const imageUrl = await uploadImage(req.file);
-      nueva.imagen = imageUrl;
-    }
+      if (req.file) {
+        const imageUrl = await uploadImage(req.file);
+        nueva.imagen = imageUrl;
+      }
 
-    const videoInfo = extraerEnlacesVideo(nueva.mensaje);
-    if (videoInfo.tieneVideo) {
-      nueva.video = {
-        plataforma: videoInfo.plataforma,
-        videoId: videoInfo.videoId,
-        urlOriginal: videoInfo.urlOriginal
-      };
-    }
+      const videoInfo = extraerEnlacesVideo(nueva.mensaje);
+      if (videoInfo.tieneVideo) {
+        nueva.video = {
+          plataforma: videoInfo.plataforma,
+          videoId: videoInfo.videoId,
+          urlOriginal: videoInfo.urlOriginal
+        };
+      }
 
-    if (nueva.respuestaA !== undefined) {
-      const original = data.find(pub => pub.id === parseInt(nueva.respuestaA));
-      if (!original) return res.status(404).json({ error: 'Publicación original no encontrada' });
-      original.replicas = original.replicas || [];
-      const nuevaReplica = {
-        nombre: nueva.nombre,
-        mensaje: nueva.mensaje,
-        fecha: new Date().toISOString(),
-        imagen: nueva.imagen,
-        likes: 0,
-        dislikes: 0,
-        genero: nueva.genero,
-        emojiCounts: {}
-      };
-      if (videoInfo.tieneVideo) nuevaReplica.video = nueva.video;
-      original.replicas.push(nuevaReplica);
-    } else {
-      nueva.id = Date.now();
-      nueva.fecha = new Date().toISOString();
-      nueva.replicas = [];
-      nueva.likes = 0;
-      nueva.dislikes = 0;
-      nueva.emojiCounts = {};
-      const matches = nueva.mensaje.match(/#\w+/g);
-      nueva.hashtags = matches ? matches.map(tag => tag.substring(1).toLowerCase()) : [];
-      data.push(nueva);
-    }
-    await updatePublicaciones(data, sha);
-    res.status(201).json({ mensaje: 'Guardado con éxito' });
+      if (nueva.respuestaA !== undefined) {
+        const original = data.find(pub => pub.id === parseInt(nueva.respuestaA));
+        if (!original) {
+          res.status(404).json({ error: 'Publicación original no encontrada' });
+          return;
+        }
+        original.replicas = original.replicas || [];
+        const nuevaReplica = {
+          nombre: nueva.nombre,
+          mensaje: nueva.mensaje,
+          fecha: new Date().toISOString(),
+          imagen: nueva.imagen,
+          likes: 0,
+          dislikes: 0,
+          genero: nueva.genero,
+          emojiCounts: {}
+        };
+        if (videoInfo.tieneVideo) nuevaReplica.video = nueva.video;
+        original.replicas.push(nuevaReplica);
+      } else {
+        nueva.id = Date.now();
+        nueva.fecha = new Date().toISOString();
+        nueva.replicas = [];
+        nueva.likes = 0;
+        nueva.dislikes = 0;
+        nueva.emojiCounts = {};
+        const matches = nueva.mensaje.match(/#\w+/g);
+        nueva.hashtags = matches ? matches.map(tag => tag.substring(1).toLowerCase()) : [];
+        data.push(nueva);
+      }
+      await updatePublicaciones(data, sha);
+      res.status(201).json({ mensaje: 'Guardado con éxito' });
+    });
   } catch (error) {
     console.error('Error al guardar publicación:', error);
-    res.status(500).json({ error: 'Error al guardar la publicación' });
+    if (!res.headersSent) {
+      res.status(500).json({ error: 'Error al guardar la publicación' });
+    }
   }
 });
 
 app.post('/api/publicaciones/:id/voto', async (req, res) => {
   try {
-    const { data, sha } = await getPublicaciones();
-    const id = parseInt(req.params.id);
-    const { tipo } = req.body;
+    await fileMutex.runExclusive(async () => {
+      const { data, sha } = await getPublicaciones();
+      const id = parseInt(req.params.id);
+      const { tipo } = req.body;
 
-    const publicacion = data.find(pub => pub.id === id);
-    if (!publicacion) return res.status(404).json({ error: 'Publicación no encontrada' });
+      const publicacion = data.find(pub => pub.id === id);
+      if (!publicacion) {
+        res.status(404).json({ error: 'Publicación no encontrada' });
+        return;
+      }
 
-    if (tipo === 'like') publicacion.likes = (publicacion.likes || 0) + 1;
-    else if (tipo === 'dislike') publicacion.dislikes = (publicacion.dislikes || 0) + 1;
+      if (tipo === 'like') publicacion.likes = (publicacion.likes || 0) + 1;
+      else if (tipo === 'dislike') publicacion.dislikes = (publicacion.dislikes || 0) + 1;
 
-    await updatePublicaciones(data, sha);
-    res.json({ likes: publicacion.likes, dislikes: publicacion.dislikes });
+      await updatePublicaciones(data, sha);
+      res.json({ likes: publicacion.likes, dislikes: publicacion.dislikes });
+    });
   } catch (error) {
     console.error('Error al procesar voto:', error);
-    res.status(500).json({ error: 'Error al procesar el voto' });
+    if (!res.headersSent) {
+      res.status(500).json({ error: 'Error al procesar el voto' });
+    }
   }
 });
 
 app.post('/api/publicaciones/:id/respuesta/:indice/voto', async (req, res) => {
   try {
-    const { data, sha } = await getPublicaciones();
-    const id = parseInt(req.params.id);
-    const indice = parseInt(req.params.indice);
-    const { tipo } = req.body;
+    await fileMutex.runExclusive(async () => {
+      const { data, sha } = await getPublicaciones();
+      const id = parseInt(req.params.id);
+      const indice = parseInt(req.params.indice);
+      const { tipo } = req.body;
 
-    const publicacion = data.find(pub => pub.id === id);
-    if (!publicacion || !publicacion.replicas || !publicacion.replicas[indice]) {
-      return res.status(404).json({ error: 'Respuesta no encontrada' });
-    }
+      const publicacion = data.find(pub => pub.id === id);
+      if (!publicacion || !publicacion.replicas || !publicacion.replicas[indice]) {
+        res.status(404).json({ error: 'Respuesta no encontrada' });
+        return;
+      }
 
-    const respuesta = publicacion.replicas[indice];
-    if (tipo === 'like') respuesta.likes = (respuesta.likes || 0) + 1;
-    else if (tipo === 'dislike') respuesta.dislikes = (respuesta.dislikes || 0) + 1;
+      const respuesta = publicacion.replicas[indice];
+      if (tipo === 'like') respuesta.likes = (respuesta.likes || 0) + 1;
+      else if (tipo === 'dislike') respuesta.dislikes = (respuesta.dislikes || 0) + 1;
 
-    await updatePublicaciones(data, sha);
-    res.json({ likes: respuesta.likes, dislikes: respuesta.dislikes });
+      await updatePublicaciones(data, sha);
+      res.json({ likes: respuesta.likes, dislikes: respuesta.dislikes });
+    });
   } catch (error) {
     console.error('Error al procesar voto en respuesta:', error);
-    res.status(500).json({ error: 'Error al procesar el voto en la respuesta' });
+    if (!res.headersSent) {
+      res.status(500).json({ error: 'Error al procesar el voto en la respuesta' });
+    }
   }
 });
 
@@ -263,28 +291,41 @@ app.get('/api/publicaciones/:id', async (req, res) => {
 
 app.post('/api/publicaciones/:id/emoji-reaction', async (req, res) => {
   try {
-    const { data, sha } = await getPublicaciones();
-    const id = parseInt(req.params.id);
-    const { emoji, action } = req.body;
+    await fileMutex.runExclusive(async () => {
+      const { data, sha } = await getPublicaciones();
+      const id = parseInt(req.params.id);
+      const { emoji, action } = req.body;
 
-    const EMOJIS_PERMITIDOS = ['👍', '😂', '❤️', '🤔', '😢', '😮'];
-    if (!EMOJIS_PERMITIDOS.includes(emoji)) return res.status(400).json({ error: 'Emoji no permitido' });
-    if (!['add', 'remove'].includes(action)) return res.status(400).json({ error: 'Acción no válida' });
+      const EMOJIS_PERMITIDOS = ['👍', '😂', '❤️', '🤔', '😢', '😮'];
+      if (!EMOJIS_PERMITIDOS.includes(emoji)) {
+        res.status(400).json({ error: 'Emoji no permitido' });
+        return;
+      }
+      if (!['add', 'remove'].includes(action)) {
+        res.status(400).json({ error: 'Acción no válida' });
+        return;
+      }
 
-    const publicacion = data.find(pub => pub.id === id);
-    if (!publicacion) return res.status(404).json({ error: 'Publicación no encontrada' });
+      const publicacion = data.find(pub => pub.id === id);
+      if (!publicacion) {
+        res.status(404).json({ error: 'Publicación no encontrada' });
+        return;
+      }
 
-    publicacion.emojiCounts = publicacion.emojiCounts || {};
-    publicacion.emojiCounts[emoji] = publicacion.emojiCounts[emoji] || 0;
+      publicacion.emojiCounts = publicacion.emojiCounts || {};
+      publicacion.emojiCounts[emoji] = publicacion.emojiCounts[emoji] || 0;
 
-    if (action === 'add') publicacion.emojiCounts[emoji] += 1;
-    else if (action === 'remove') publicacion.emojiCounts[emoji] = Math.max(0, publicacion.emojiCounts[emoji] - 1);
+      if (action === 'add') publicacion.emojiCounts[emoji] += 1;
+      else if (action === 'remove') publicacion.emojiCounts[emoji] = Math.max(0, publicacion.emojiCounts[emoji] - 1);
 
-    await updatePublicaciones(data, sha);
-    res.json({ success: true, count: publicacion.emojiCounts[emoji] });
+      await updatePublicaciones(data, sha);
+      res.json({ success: true, count: publicacion.emojiCounts[emoji] });
+    });
   } catch (error) {
     console.error('Error al procesar reacción de emoji:', error);
-    res.status(500).json({ error: 'Error al procesar la reacción' });
+    if (!res.headersSent) {
+      res.status(500).json({ error: 'Error al procesar la reacción' });
+    }
   }
 });
 
@@ -302,31 +343,42 @@ app.get('/api/publicaciones/:id/emoji-reactions', async (req, res) => {
 
 app.post('/api/publicaciones/:id/respuesta/:indice/emoji-reaction', async (req, res) => {
   try {
-    const { data, sha } = await getPublicaciones();
-    const id = parseInt(req.params.id);
-    const indice = parseInt(req.params.indice);
-    const { emoji, action } = req.body;
+    await fileMutex.runExclusive(async () => {
+      const { data, sha } = await getPublicaciones();
+      const id = parseInt(req.params.id);
+      const indice = parseInt(req.params.indice);
+      const { emoji, action } = req.body;
 
-    if (!['👍', '😂', '❤️', '🤔', '😢', '😮'].includes(emoji)) return res.status(400).json({ error: 'Emoji no permitido' });
-    if (!['add', 'remove'].includes(action)) return res.status(400).json({ error: 'Acción no válida' });
+      if (!['👍', '😂', '❤️', '🤔', '😢', '😮'].includes(emoji)) {
+        res.status(400).json({ error: 'Emoji no permitido' });
+        return;
+      }
+      if (!['add', 'remove'].includes(action)) {
+        res.status(400).json({ error: 'Acción no válida' });
+        return;
+      }
 
-    const publicacion = data.find(pub => pub.id === id);
-    if (!publicacion || !publicacion.replicas || !publicacion.replicas[indice]) {
-      return res.status(404).json({ error: 'Respuesta no encontrada' });
-    }
+      const publicacion = data.find(pub => pub.id === id);
+      if (!publicacion || !publicacion.replicas || !publicacion.replicas[indice]) {
+        res.status(404).json({ error: 'Respuesta no encontrada' });
+        return;
+      }
 
-    const respuesta = publicacion.replicas[indice];
-    respuesta.emojiCounts = respuesta.emojiCounts || {};
-    respuesta.emojiCounts[emoji] = respuesta.emojiCounts[emoji] || 0;
+      const respuesta = publicacion.replicas[indice];
+      respuesta.emojiCounts = respuesta.emojiCounts || {};
+      respuesta.emojiCounts[emoji] = respuesta.emojiCounts[emoji] || 0;
 
-    if (action === 'add') respuesta.emojiCounts[emoji] += 1;
-    else if (action === 'remove') respuesta.emojiCounts[emoji] = Math.max(0, respuesta.emojiCounts[emoji] - 1);
+      if (action === 'add') respuesta.emojiCounts[emoji] += 1;
+      else if (action === 'remove') respuesta.emojiCounts[emoji] = Math.max(0, respuesta.emojiCounts[emoji] - 1);
 
-    await updatePublicaciones(data, sha);
-    res.json({ success: true, count: respuesta.emojiCounts[emoji] });
+      await updatePublicaciones(data, sha);
+      res.json({ success: true, count: respuesta.emojiCounts[emoji] });
+    });
   } catch (error) {
     console.error('Error al procesar reacción de emoji en respuesta:', error);
-    res.status(500).json({ error: 'Error al procesar la reacción' });
+    if (!res.headersSent) {
+      res.status(500).json({ error: 'Error al procesar la reacción' });
+    }
   }
 });
 
