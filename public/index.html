@@ -11,6 +11,41 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* Estilos para el botón de descarga de la app */
+    .download-app-container {
+      margin-top: 1rem;
+      padding: 0.8rem;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .download-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background: linear-gradient(45deg, #f89b29, #ff4e50);
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 5px;
+      transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+      font-size: 15px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+    .download-note {
+      display: block;
+      margin-top: 8px;
+      font-size: 12px;
+      color: #eee;
+    }
+  </style>
 </head>
 
 
@@ -24,6 +59,13 @@
       </h1>
 
       <p class="site-tagline">Espacio libre para compartir ideas , anuncios y confesiones de todo tipo</p>
+
+      <div class="download-app-container">
+        <a href="https://www.mediafire.com/file/8oggzfwowi91d5d/Chismeate_1_1.0.apk/file" class="download-btn" target="_blank" rel="noopener noreferrer">
+          📲 Descargar la App
+        </a>
+        <p class="download-note">(No hace falta darle ningún permiso a la aplicación al iniciar, aunque esta así los pida)</p>
+      </div>
     </div>
   </header>
 
