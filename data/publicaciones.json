@@ -1596,5 +1596,18 @@
       "❤️": 2
     },
     "hashtags": []
+  },
+  {
+    "nombre": "Perro Stand",
+    "mensaje": "Aveces muerdo al gato",
+    "genero": "hombre",
+    "imagen": "/uploads/1758999865690-227307049.jpg",
+    "id": 1758999866145,
+    "fecha": "2025-09-27T19:04:26.145Z",
+    "replicas": [],
+    "likes": 0,
+    "dislikes": 0,
+    "emojiCounts": {},
+    "hashtags": []
   }
 ]
