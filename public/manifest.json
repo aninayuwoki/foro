@@ -7,7 +7,7 @@
   "orientation": "any",
   "scope": "/",
   "short_name": "chismeate.onrender",
-  "start_url": "/",
+  "start_url": "/index.html",
   "theme_color": "#ffffff",
   "icons": [
     {
@@ -22,6 +22,5 @@
       "is256x256": false,
       "is192x192": false
     }
-  ],
-  "id": "ConfiG"
+  ]
 }
