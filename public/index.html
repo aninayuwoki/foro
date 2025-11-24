@@ -1,128 +1,117 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Foro de interaccion entre estudiantes - Publicaciones y anuncios sin necesidad de registro">
-  <title> ConfiG  </title>
+  <meta name="description"
+    content="Sistema de denuncias anónimas - Reporta situaciones de forma segura y transparente sin necesidad de registro">
+  <title>DenunciaSegura</title>
   <link rel="icon" href="PNGASD.ico" type="image/x-icon">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    /* Estilos para el botón de descarga de la app */
-    .download-app-container {
-      margin-top: 1rem;
-      padding: 0.8rem;
-      background-color: rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
-      text-align: center;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-    .download-btn {
-      display: inline-block;
-      padding: 10px 20px;
-      background: linear-gradient(45deg, #f89b29, #ff4e50);
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      border-radius: 5px;
-      transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-      font-size: 15px;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    }
-    .download-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-    }
-    .download-note {
-      display: block;
-      margin-top: 8px;
-      font-size: 12px;
-      color: #eee;
-    }
-  </style>
 </head>
-
 
 <body>
   <header class="site-header">
-
     <div class="container">
       <h1>
-       <img src="PNGASD.ico" alt="Logo" width="24" height="24" class="logo-icon">
-       ConfiG
+        <img src="PNGASD.ico" alt="Logo" width="24" height="24" class="logo-icon">
+        DenunciaSegura
       </h1>
 
-      <p class="site-tagline">Espacio libre para compartir ideas , anuncios y confesiones de todo tipo</p>
-      <p class="site-tagline">De momento la aplicación movil se encuentra fuera de servicio. La version web continua de forma normal</p>
-
-      <!--<div class="download-app-container">
-        <a href="https://www.mediafire.com/file/8oggzfwowi91d5d/Chismeate_1_1.0.apk/file" class="download-btn" target="_blank" rel="noopener noreferrer">
-          📲 Descargar la App
-        </a>
-        <p class="download-note">(No hace falta darle ningún permiso a la aplicación al iniciar, aunque esta así los pida)</p>
-      </div> -->
+      <p class="site-tagline">Sistema de denuncias anónimas - Reporta situaciones de forma segura y transparente</p>
+      <p class="site-tagline">Tu voz importa. Denuncia de manera anónima y contribuye a una comunidad más justa</p>
     </div>
   </header>
 
   <main class="container">
     <section class="nueva-publicacion">
-      <h2 class="section-title">Confiesate algo</h2>
-       <form id="form-publicacion" enctype="multipart/form-data">
-
-  
-  <div class="form-group">
-    <label for="nombre">Tu nombre (solo si quieres)</label>
-    <input type="text" id="nombre" placeholder="Whyman/Whygirl" aria-label="Tu nombre o apodo">
-  </div>
-
-  <div class="form-group">
-    <label>Género</label>
-    <div class="genero-iconos">
-      <button type="button" class="genero-btn" data-genero="hombre" title="Hombre">♂</button>
-      <button type="button" class="genero-btn" data-genero="mujer" title="Mujer">♀</button>
-      <button type="button" class="genero-btn" data-genero="mecha" title="Mecha 🤖">🤖</button>
-    </div>
-    <input type="hidden" name="genero" id="genero" value="">
-  </div>
+      <h2 class="section-title">Reporta una situación</h2>
+      <form id="form-publicacion" enctype="multipart/form-data">
 
 
+        <div class="form-group">
+          <label for="nombre">Tu nombre (opcional - se mantendrá anónimo)</label>
+          <input type="text" id="nombre" placeholder="Denunciante Anónimo" aria-label="Tu nombre o apodo">
+        </div>
 
-  <div class="form-group">
-    <label for="mensaje">Confesión</label>
-    <textarea id="mensaje" placeholder="Di sin miedo cualquier cosa que quieras decir y usa los # para etiquetar un tema o crear uno" required aria-label="Contenido de la confesión"></textarea>
-  </div>
+        <div class="form-group">
+          <label for="categoria">Categoría de la denuncia *</label>
+          <select id="categoria" name="categoria" required aria-label="Categoría de la denuncia">
+            <option value="">-- Selecciona una categoría --</option>
+            <option value="acoso">🚨 Acoso/Bullying</option>
+            <option value="corrupcion">💰 Corrupción</option>
+            <option value="injusticia">⚖️ Injusticia</option>
+            <option value="laboral">🏢 Laboral</option>
+            <option value="academico">🎓 Académico</option>
+            <option value="salud">🏥 Salud</option>
+            <option value="ambiental">🌍 Ambiental</option>
+            <option value="trafico">🚗 Tráfico/Vialidad</option>
+            <option value="discriminacion">👥 Discriminación</option>
+            <option value="seguridad">🔒 Seguridad</option>
+            <option value="otra">📢 Otra</option>
+          </select>
+        </div>
 
-  <div class="form-group imagen-container">
-    <input type="file" id="imagen" accept="image/*" class="input-imagen" aria-label="Subir imagen">
-    <label for="imagen" class="btn-imagen">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-        <circle cx="12" cy="13" r="4"></circle>
-      </svg>
-      Añadir imagen <span class="file-limit">(1)</span>
-    </label>
-    <div id="imagen-preview"></div>
-  </div>
+        <div class="form-group">
+          <label for="urgencia">Nivel de urgencia *</label>
+          <select id="urgencia" name="urgencia" required aria-label="Nivel de urgencia">
+            <option value="">-- Selecciona el nivel --</option>
+            <option value="bajo">🟢 Bajo - Situación no urgente</option>
+            <option value="medio">🟡 Medio - Requiere atención</option>
+            <option value="alto">🟠 Alto - Situación seria</option>
+            <option value="critico">🔴 Crítico - Requiere acción inmediata</option>
+          </select>
+        </div>
 
-  <button type="submit" class="btn btn-primary">
-    <span class="btn-text">Publicar</span>
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
-      <path d="M12 5v14M19 12l-7 7-7-7"/>
-    </svg>
-  </button>
-</form>
+        <div class="form-group">
+          <label for="ubicacion">Ubicación (opcional)</label>
+          <input type="text" id="ubicacion" name="ubicacion" placeholder="Ej: Calle Principal #123, Edificio A"
+            aria-label="Ubicación del incidente">
+        </div>
+
+        <div class="form-group">
+          <label for="fecha-incidente">Fecha del incidente (opcional)</label>
+          <input type="date" id="fecha-incidente" name="fecha-incidente" aria-label="Fecha del incidente">
+        </div>
+
+        <div class="form-group">
+          <label for="mensaje">Descripción de la denuncia *</label>
+          <textarea id="mensaje"
+            placeholder="Describe la situación con el mayor detalle posible. Puedes usar # para agregar etiquetas adicionales"
+            required aria-label="Descripción de la denuncia"></textarea>
+        </div>
+
+        <div class="form-group imagen-container">
+          <input type="file" id="imagen" accept="image/*" class="input-imagen" aria-label="Subir imagen">
+          <label for="imagen" class="btn-imagen">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+              <circle cx="12" cy="13" r="4"></circle>
+            </svg>
+            Añadir evidencia fotográfica <span class="file-limit">(opcional)</span>
+          </label>
+          <div id="imagen-preview"></div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+          <span class="btn-text">Enviar Denuncia</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            class="btn-icon">
+            <path d="M12 5v14M19 12l-7 7-7-7" />
+          </svg>
+        </button>
+      </form>
     </section>
 
     <section class="filtros">
-      <h2 class="section-title">Filtrar por tema</h2>
+      <h2 class="section-title">Filtrar por categoría</h2>
       <div id="hashtags-container">
-        <div class="hashtag-pill hashtag-activo" data-hashtag="">Todos</div>
+        <div class="hashtag-pill hashtag-activo" data-hashtag="">Todas</div>
         <!-- Los hashtags se cargarán aquí dinámicamente -->
       </div>
 
@@ -133,7 +122,7 @@
     </section>
 
     <section class="publicaciones">
-      <h2 class="section-title"> Publicaciones recientes</h2>
+      <h2 class="section-title">Denuncias recientes</h2>
       <div class="tabs">
         <button onclick="cargarPublicacionesRecientes()" class="tab-btn" id="btn-recientes">Recientes</button>
         <button onclick="cargarPublicacionesMasVotadas()" class="tab-btn" id="btn-votadas">Más votadas</button>
@@ -142,7 +131,7 @@
       <div id="publicaciones" class="publicaciones-grid">
         <div class="cargando">
           <div class="loader"></div>
-          <p>Cargando publicaciones...</p>
+          <p>Cargando denuncias...</p>
         </div>
       </div>
     </section>
@@ -150,9 +139,9 @@
 
   <footer class="site-footer">
     <div class="container">
-      <p>Confestituto, Libre y Transparente © 2025</p>
-      <p class="small">Todos tienen derecho al anonimato.</p>
-      <p><a href="index_ruleta.html" class="ruleta-link">¿</a></p>
+      <p>DenunciaSegura - Sistema Anónimo y Transparente © 2025</p>
+      <p class="small">Todos tienen derecho a denunciar de forma anónima y segura.</p>
+      <p class="small">Las denuncias son públicas para fomentar la transparencia y rendición de cuentas.</p>
     </div>
   </footer>
 
@@ -167,19 +156,27 @@
 
   <div id="modal-terminos" class="modal-terminos">
     <div class="modal-contenido">
-      <h2> Normas de uso y advertencias</h2>
-      <p><strong>Antes de usar este foro, por favor lea con atención:</strong></p>
+      <h2>⚖️ Normas de uso y advertencias legales</h2>
+      <p><strong>Antes de usar este sistema de denuncias, por favor lea con atención:</strong></p>
       <ul style="text-align: left; padding-left: 1.2rem;">
-        <li>Este foro es anónimo, pero <strong>todo contenido puede ser revisado</strong> y eliminado si infringe las reglas.</li>
-        <li><strong>No publiques contenido ofensivo, violento, discriminatorio ni ilegal.</strong></li>
-        <li>Evite subir imágenes o enlaces que vulneren la privacidad o los derechos de otras personas.</li>
-        <li>No uses esta plataforma para acosar, suplantar, intimidar ni atacar a otros usuarios.</li>
-        <li>Todo lo que publiques es tu <strong>responsabilidad personal</strong> y puede tener consecuencias.</li>
-        <li>El uso indebido del foro puede llevar a la <strong>eliminación de contenido</strong> sin previo aviso.</li>
+        <li>Este sistema permite <strong>denuncias anónimas</strong>, pero todo contenido puede ser revisado y eliminado
+          si infringe las reglas.</li>
+        <li><strong>Las denuncias falsas o malintencionadas pueden tener consecuencias legales.</strong> Denuncia solo
+          situaciones reales.</li>
+        <li>No publiques contenido ofensivo, difamatorio, discriminatorio ni ilegal.</li>
+        <li>Evita compartir información personal identificable de terceros sin su consentimiento.</li>
+        <li>No uses esta plataforma para acosar, intimidar ni atacar a otras personas.</li>
+        <li>Todo lo que publiques es tu <strong>responsabilidad personal</strong> y puede tener consecuencias legales.
+        </li>
+        <li>Las denuncias son <strong>públicas</strong> para fomentar la transparencia. No incluyas datos sensibles
+          innecesarios.</li>
+        <li>En casos graves, la información puede ser compartida con autoridades competentes.</li>
+        <li>El uso indebido puede llevar a la <strong>eliminación de contenido</strong> sin previo aviso.</li>
       </ul>
-      <p>Para más detalles, consulta los <a href="terminos.html" target="_blank">términos y condiciones completos</a>.</p>
+      <p>Para más detalles, consulta los <a href="terminos.html" target="_blank">términos y condiciones completos</a>.
+      </p>
       <div class="acciones-modal">
-        <button id="btn-aceptar-terminos" class="btn btn-primary">Aceptar y continuar</button>
+        <button id="btn-aceptar-terminos" class="btn btn-primary">Acepto las condiciones y quiero continuar</button>
       </div>
     </div>
   </div>
@@ -188,6 +185,5 @@
   <script src="script.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 </body>
-
 
 </html>

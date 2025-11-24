@@ -1,14 +1,14 @@
 {
-  "background_color": "#ffffff",
-  "description": "Foro de interaccion entre estudiantes - Publicaciones y anuncios sin necesidad de registro",
+  "background_color": "#1e3a8a",
+  "description": "Sistema de denuncias anónimas - Reporta situaciones de forma segura y transparente sin necesidad de registro",
   "dir": "ltr",
   "display": "standalone",
-  "name": "chismeate.onrender",
+  "name": "DenunciaSegura",
   "orientation": "any",
   "scope": "/",
-  "short_name": "chismeate.onrender",
+  "short_name": "DenunciaSegura",
   "start_url": "/",
-  "theme_color": "#ffffff",
+  "theme_color": "#1e3a8a",
   "icons": [
     {
       "src": "https://chismeate.onrender.com/PNGASD.ico",

@@ -18,21 +18,6 @@ document.addEventListener("DOMContentLoaded", function () {
     modal.style.display = 'none'; // Por si quedó visible por error
     iniciarAplicacion();
   }
-
-  // Nuevo: Selector de género por íconos
-  const generoBotones = document.querySelectorAll('.genero-btn');
-  const generoInput = document.getElementById('genero');
-  if (generoBotones.length && generoInput) {
-    generoBotones.forEach(btn => {
-      btn.addEventListener('click', function () {
-        generoInput.value = this.dataset.genero;
-
-        // Limpiar selección anterior
-        generoBotones.forEach(b => b.classList.remove('seleccionado'));
-        this.classList.add('seleccionado');
-      });
-    });
-  }
 });
 
 
@@ -106,7 +91,7 @@ function setupEmojiEventListeners() {
     const newButton = button.cloneNode(true);
     button.parentNode.replaceChild(newButton, button);
 
-    newButton.addEventListener('click', async function() {
+    newButton.addEventListener('click', async function () {
       const postId = this.dataset.postId;
       const emoji = this.dataset.emoji;
       const localStorageKey = `reacted_emoji_${postId}_${emoji}`;
@@ -190,7 +175,6 @@ function mostrarPublicaciones(publicaciones) {
   publicaciones.forEach((pub, index) => {
     const div = document.createElement('div');
     div.className = 'publicacion';
-    div.classList.add(`genero-${pub.genero || 'otro'}`);
     div.id = `pub-${pub.id}`;
 
     const mensajeConHashtags = procesarHashtags(pub.mensaje);
@@ -221,15 +205,14 @@ function mostrarPublicaciones(publicaciones) {
           <br>
           <span class="votar-estrellas" data-id="${pub.id}">
             Calificar:
-            ${
-              (() => {
-                const key_estrellas = `votado_estrellas_${pub.id}`;
-                const puntuacion_estrellas = localStorage.getItem(key_estrellas) ? parseInt(localStorage.getItem(key_estrellas)) : 0;
-                return [1, 2, 3, 4, 5].map(i =>
-                  `<span class="estrella ${i <= puntuacion_estrellas ? 'votada' : ''}" data-id="${pub.id}" data-score="${i}">★</span>`
-                ).join('');
-              })()
-            }
+            ${(() => {
+        const key_estrellas = `votado_estrellas_${pub.id}`;
+        const puntuacion_estrellas = localStorage.getItem(key_estrellas) ? parseInt(localStorage.getItem(key_estrellas)) : 0;
+        return [1, 2, 3, 4, 5].map(i =>
+          `<span class="estrella ${i <= puntuacion_estrellas ? 'votada' : ''}" data-id="${pub.id}" data-score="${i}">★</span>`
+        ).join('');
+      })()
+      }
           </span>
         </div>
         <div class="publicacion-acciones">
@@ -267,10 +250,10 @@ function mostrarPublicaciones(publicaciones) {
       ${emojiReactionsHTML}
       <div id="respuestas-${pub.id}">
         ${pub.replicas?.map((rep, repIndex) => {
-          const repMensajeConHashtags = procesarHashtags(rep.mensaje);
-          const repImagenHTML = rep.imagen ? `<div class="respuesta-imagen"><img src="${rep.imagen}" alt="Imagen adjunta" onclick="abrirImagenModal('${rep.imagen}')"></div>` : '';
-          const repVideoHTML = rep.video ? crearReproductorVideo(rep.video) : '';
-          const respVotosHTML = `
+      const repMensajeConHashtags = procesarHashtags(rep.mensaje);
+      const repImagenHTML = rep.imagen ? `<div class="respuesta-imagen"><img src="${rep.imagen}" alt="Imagen adjunta" onclick="abrirImagenModal('${rep.imagen}')"></div>` : '';
+      const repVideoHTML = rep.video ? crearReproductorVideo(rep.video) : '';
+      const respVotosHTML = `
             <div class="respuesta-footer">
               <div class="votacion votacion-respuesta">
                 <button class="btn-like" data-pub-id="${pub.id}" data-resp-index="${repIndex}">
@@ -282,8 +265,8 @@ function mostrarPublicaciones(publicaciones) {
               </div>
             </div>
           `;
-          return `
-            <div class="respuesta genero-${rep.genero || 'otro'}" id="resp-${pub.id}-${repIndex}">
+      return `
+            <div class="respuesta" id="resp-${pub.id}-${repIndex}">
               <strong>${rep.nombre}</strong><br>
               ${repMensajeConHashtags}<br>
               ${repVideoHTML}
@@ -292,16 +275,10 @@ function mostrarPublicaciones(publicaciones) {
               ${respVotosHTML}
             </div>
           `;
-        }).join('') || ''}
+    }).join('') || ''}
       </div>
       <div id="form-respuesta-${pub.id}" style="display:none; margin-top:10px;">
         <input type="text" placeholder="Tu nombre o apodo" id="nombre-rep-${pub.id}"><br>
-        <select id="genero-rep-${pub.id}">
-          <option value="">-- No especificar --</option>
-          <option value="hombre">Hombre</option>
-          <option value="mujer">Mujer</option>
-          <option value="mecha">Mecha</option>
-        </select><br>
         <textarea placeholder="Tu respuesta..." id="mensaje-rep-${pub.id}"></textarea><br>
         <div class="imagen-container">
           <input type="file" id="imagen-rep-${pub.id}" accept="image/*" class="input-imagen">
@@ -333,7 +310,7 @@ function mostrarPublicaciones(publicaciones) {
     const btnEnviarResp = document.getElementById(`btn-enviar-resp-${pub.id}`);
 
     if (checkboxResp && btnEnviarResp) {
-      checkboxResp.addEventListener('change', function() {
+      checkboxResp.addEventListener('change', function () {
         btnEnviarResp.disabled = !this.checked;
         if (this.checked) {
           btnEnviarResp.classList.remove('btn-disabled');
@@ -379,7 +356,6 @@ function mostrarPublicaciones(publicaciones) {
 function mostrarPublicacionDetallada(pub, contenedor) {
   const div = document.createElement('div');
   div.className = 'publicacion publicacion-detallada';
-  div.classList.add(`genero-${pub.genero || 'otro'}`);
   div.id = `pub-${pub.id}`;
 
   const mensajeConHashtags = procesarHashtags(pub.mensaje);
@@ -431,12 +407,6 @@ function mostrarPublicacionDetallada(pub, contenedor) {
       <h3>Comentarios</h3>
       <div id="form-respuesta-${pub.id}" style="display:none; margin: 20px 0;">
         <input type="text" placeholder="Tu nombre o apodo" id="nombre-rep-${pub.id}"><br>
-        <select id="genero-rep-${pub.id}">
-          <option value="">-- No especificar --</option>
-          <option value="hombre">Hombre</option>
-          <option value="mujer">Mujer</option>
-          <option value="mecha">Mecha</option>
-        </select><br>
         <textarea placeholder="Tu respuesta..." id="mensaje-rep-${pub.id}"></textarea><br>
         <div class="imagen-container">
           <input type="file" id="imagen-rep-${pub.id}" accept="image/*" class="input-imagen">
@@ -455,12 +425,12 @@ function mostrarPublicacionDetallada(pub, contenedor) {
       <div id="respuestas-${pub.id}" class="respuestas-detalladas">
         ${pub.replicas?.length ? '' : '<p class="sin-comentarios">Aún no hay comentarios. ¡Sé el primero en responder!</p>'}
         ${pub.replicas?.map((rep, repIndex) => {
-          const repMensajeConHashtags = procesarHashtags(rep.mensaje);
-          const repImagenHTML = rep.imagen ? `<div class="respuesta-imagen"><img src="${rep.imagen}" alt="Imagen adjunta" onclick="abrirImagenModal('${rep.imagen}')"></div>` : '';
-          const repVideoHTML = rep.video ? crearReproductorVideo(rep.video) : '';
-          // Emoji reactions for replies could be added here if needed
-          return `
-            <div class="respuesta respuesta-detallada genero-${rep.genero || 'otro'}" id="resp-${pub.id}-${repIndex}">
+    const repMensajeConHashtags = procesarHashtags(rep.mensaje);
+    const repImagenHTML = rep.imagen ? `<div class="respuesta-imagen"><img src="${rep.imagen}" alt="Imagen adjunta" onclick="abrirImagenModal('${rep.imagen}')"></div>` : '';
+    const repVideoHTML = rep.video ? crearReproductorVideo(rep.video) : '';
+    // Emoji reactions for replies could be added here if needed
+    return `
+            <div class="respuesta respuesta-detallada" id="resp-${pub.id}-${repIndex}">
               <div class="respuesta-cabecera">
                 <strong>${rep.nombre}</strong>
                 <small>${new Date(rep.fecha).toLocaleString()}</small>
@@ -482,7 +452,7 @@ function mostrarPublicacionDetallada(pub, contenedor) {
               </div>
             </div>
           `;
-        }).join('') || ''}
+  }).join('') || ''}
       </div>
     </div>
   `; // End of div.innerHTML
@@ -501,7 +471,7 @@ function mostrarPublicacionDetallada(pub, contenedor) {
   const btnEnviarResp = document.getElementById(`btn-enviar-resp-${pub.id}`);
 
   if (checkboxResp && btnEnviarResp) {
-    checkboxResp.addEventListener('change', function() {
+    checkboxResp.addEventListener('change', function () {
       btnEnviarResp.disabled = !this.checked;
       if (this.checked) {
         btnEnviarResp.classList.remove('btn-disabled');
@@ -542,26 +512,13 @@ async function cargarPublicacionesOrdenadasPorVotos() {
   mostrarPublicaciones(publicaciones);
 }
 
-function generarNombrePorDefecto(genero) {
-  let base;
-  switch (genero) {
-    case 'mujer':
-      base = 'Whygirl';
-      break;
-    case 'mecha':
-      base = 'Bot';
-      break;
-    case 'hombre':
-    case '':
-    default:
-      base = 'Whyman';
-  }
-  const contador = localStorage.getItem(`contador_${base}`) || 0;
-  localStorage.setItem(`contador_${base}`, Number(contador) + 1);
-  return `${base}${contador}`;
+function generarNombrePorDefecto() {
+  const contador = localStorage.getItem('contador_denunciante') || 0;
+  localStorage.setItem('contador_denunciante', Number(contador) + 1);
+  return `Denunciante Anónimo ${contador}`;
 }
 
-document.getElementById('imagen').addEventListener('change', function(e) {
+document.getElementById('imagen').addEventListener('change', function (e) {
   const archivo = e.target.files[0];
   if (!archivo) return;
   if (archivo.size > 20 * 1024 * 1024) {
@@ -577,7 +534,7 @@ document.getElementById('imagen').addEventListener('change', function(e) {
   }
   imagenSeleccionada = archivo;
   const reader = new FileReader();
-  reader.onload = function(event) {
+  reader.onload = function (event) {
     const preview = document.getElementById('imagen-preview');
     preview.innerHTML = `
       <div class="imagen-preview">
@@ -600,7 +557,7 @@ function configurarModalImagen() {
   if (!modal) return;
 
   // Usar delegación de eventos en el modal mismo
-  modal.addEventListener('click', function(event) {
+  modal.addEventListener('click', function (event) {
     // Si se hizo clic en el backdrop o en el botón de cerrar
     if (event.target.classList.contains('modal-backdrop') || event.target.classList.contains('cerrar-modal')) {
       cerrarModalImagen();
@@ -626,7 +583,7 @@ function abrirImagenModal(src) {
 function crearReproductorVideo(videoInfo) {
   if (!videoInfo || !videoInfo.plataforma) return '';
   let reproductorHTML = '';
-  switch(videoInfo.plataforma) {
+  switch (videoInfo.plataforma) {
     case 'youtube':
       reproductorHTML = `
         <div class="video-contenedor">
@@ -662,16 +619,16 @@ function gestionarVotos() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ tipo })
     })
-    .then(res => res.json())
-    .then(data => {
-      const publicacion = document.querySelector(`#pub-${id}`);
-      publicacion.querySelector(`.contador-${tipo}`).textContent = data[`${tipo}s`];
-      elemento.classList.add('voted');
-      votesState[voteKey] = true;
-      localStorage.setItem('votesState', JSON.stringify(votesState));
-      publicacion.querySelector(`.btn-like`).disabled = true;
-      publicacion.querySelector(`.btn-dislike`).disabled = true;
-    });
+      .then(res => res.json())
+      .then(data => {
+        const publicacion = document.querySelector(`#pub-${id}`);
+        publicacion.querySelector(`.contador-${tipo}`).textContent = data[`${tipo}s`];
+        elemento.classList.add('voted');
+        votesState[voteKey] = true;
+        localStorage.setItem('votesState', JSON.stringify(votesState));
+        publicacion.querySelector(`.btn-like`).disabled = true;
+        publicacion.querySelector(`.btn-dislike`).disabled = true;
+      });
   }
   function manejarVotoRespuesta(pubId, respuestaIndex, tipo, elemento) {
     const voteKey = `resp_${pubId}_${respuestaIndex}_${tipo}`;
@@ -684,19 +641,19 @@ function gestionarVotos() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ tipo })
     })
-    .then(res => res.json())
-    .then(data => {
-      const respuesta = document.querySelector(`#resp-${pubId}-${respuestaIndex}`);
-      respuesta.querySelector(`.contador-${tipo}`).textContent = data[`${tipo}s`];
-      elemento.classList.add('voted');
-      votesState[voteKey] = true;
-      localStorage.setItem('votesState', JSON.stringify(votesState));
-      respuesta.querySelector(`.btn-like`).disabled = true;
-      respuesta.querySelector(`.btn-dislike`).disabled = true;
-    });
+      .then(res => res.json())
+      .then(data => {
+        const respuesta = document.querySelector(`#resp-${pubId}-${respuestaIndex}`);
+        respuesta.querySelector(`.contador-${tipo}`).textContent = data[`${tipo}s`];
+        elemento.classList.add('voted');
+        votesState[voteKey] = true;
+        localStorage.setItem('votesState', JSON.stringify(votesState));
+        respuesta.querySelector(`.btn-like`).disabled = true;
+        respuesta.querySelector(`.btn-dislike`).disabled = true;
+      });
   }
   document.querySelectorAll('.btn-like, .btn-dislike').forEach(btn => {
-    btn.addEventListener('click', function() {
+    btn.addEventListener('click', function () {
       const tipo = this.classList.contains('btn-like') ? 'like' : 'dislike';
       const pubId = this.getAttribute('data-pub-id');
       const respIndex = this.getAttribute('data-resp-index');
@@ -735,7 +692,7 @@ function manejarImagenRespuesta(e, pubId) {
     e.target.value = ''; return;
   }
   const reader = new FileReader();
-  reader.onload = function(event) {
+  reader.onload = function (event) {
     const preview = document.getElementById(`imagen-preview-rep-${pubId}`);
     preview.innerHTML = `<div class="imagen-preview"><img src="${event.target.result}" alt="Vista previa"><div class="remover-imagen" onclick="removerImagenRespuesta(${pubId})">✕</div></div>`;
   };
@@ -766,7 +723,7 @@ async function cargarHashtags() {
     contenedor.appendChild(span);
   });
   document.querySelectorAll('.hashtag-pill').forEach(pill => {
-    pill.addEventListener('click', function() {
+    pill.addEventListener('click', function () {
       const hashtag = this.getAttribute('data-hashtag');
       filtrarPorHashtag(hashtag);
     });
@@ -802,9 +759,8 @@ function mostrarFormularioRespuesta(id) {
 }
 
 async function enviarRespuesta(id) {
-  const genero = document.getElementById(`genero-rep-${id}`)?.value || '';
   let nombre = document.getElementById(`nombre-rep-${id}`).value.trim();
-  if (!nombre) nombre = generarNombrePorDefecto(genero);
+  if (!nombre) nombre = generarNombrePorDefecto();
   const mensaje = document.getElementById(`mensaje-rep-${id}`).value.trim();
   const imagenInput = document.getElementById(`imagen-rep-${id}`);
   if (!mensaje) return;
@@ -812,7 +768,6 @@ async function enviarRespuesta(id) {
   formData.append('respuestaA', id);
   formData.append('nombre', nombre);
   formData.append('mensaje', mensaje);
-  formData.append('genero', genero);
   if (imagenInput.files[0]) formData.append('imagen', imagenInput.files[0]);
   await fetch('/api/publicaciones', { method: 'POST', body: formData });
   document.getElementById(`form-respuesta-${id}`).style.display = 'none';
@@ -841,7 +796,7 @@ document.getElementById('form-publicacion').addEventListener('submit', async fun
   setTimeout(() => { cargarHashtags(); cargarPublicaciones(); }, 100);
 });
 
-document.getElementById('quitar-filtro').addEventListener('click', function() {
+document.getElementById('quitar-filtro').addEventListener('click', function () {
   filtrarPorHashtag('');
 });
 
@@ -895,63 +850,63 @@ function actualizarEstrellas(pubId, puntuacion) {
 // function crearElementoRespuesta(datos) { /* ... */ }
 
 function agregarPublicacion(datos) {
-    // const nuevaPublicacion = crearElementoPublicacion(datos);
-    // const contenedorPublicaciones = document.getElementById('publicaciones');
-    // contenedorPublicaciones.appendChild(nuevaPublicacion);
-    // if (window.forumAnimationsInstance && nuevaPublicacion) {
-    //     window.forumAnimationsInstance.animateNewPost(nuevaPublicacion);
-    // }
-    // if (window.forumAnimationsInstance) {
-    //     window.forumAnimationsInstance.setupHoverAnimations();
-    // }
-    console.warn("agregarPublicacion de ejemplo llamada. Necesita implementación real si se usa o eliminarla.");
+  // const nuevaPublicacion = crearElementoPublicacion(datos);
+  // const contenedorPublicaciones = document.getElementById('publicaciones');
+  // contenedorPublicaciones.appendChild(nuevaPublicacion);
+  // if (window.forumAnimationsInstance && nuevaPublicacion) {
+  //     window.forumAnimationsInstance.animateNewPost(nuevaPublicacion);
+  // }
+  // if (window.forumAnimationsInstance) {
+  //     window.forumAnimationsInstance.setupHoverAnimations();
+  // }
+  console.warn("agregarPublicacion de ejemplo llamada. Necesita implementación real si se usa o eliminarla.");
 }
 
 function agregarRespuesta(respuestaData, publicacionId) {
-    // const nuevaRespuesta = crearElementoRespuesta(respuestaData);
-    // const contenedorRespuestas = document.getElementById(`respuestas-${publicacionId}`);
-    // contenedorRespuestas.appendChild(nuevaRespuesta);
-    // if (window.forumAnimationsInstance && nuevaRespuesta) {
-    //     window.forumAnimationsInstance.animateNewReply(nuevaRespuesta);
-    // }
-    console.warn("agregarRespuesta de ejemplo llamada. Necesita implementación real si se usa o eliminarla.");
+  // const nuevaRespuesta = crearElementoRespuesta(respuestaData);
+  // const contenedorRespuestas = document.getElementById(`respuestas-${publicacionId}`);
+  // contenedorRespuestas.appendChild(nuevaRespuesta);
+  // if (window.forumAnimationsInstance && nuevaRespuesta) {
+  //     window.forumAnimationsInstance.animateNewReply(nuevaRespuesta);
+  // }
+  console.warn("agregarRespuesta de ejemplo llamada. Necesita implementación real si se usa o eliminarla.");
 }
 
 function manejarVotacionEstrellas(estrellas, rating) {
-    if (window.forumAnimationsInstance) {
-        window.forumAnimationsInstance.animateStarRating(estrellas, rating);
-    }
+  if (window.forumAnimationsInstance) {
+    window.forumAnimationsInstance.animateStarRating(estrellas, rating);
+  }
 }
 
-document.addEventListener('click', function(e) {
-    if (e.target.matches('.btn-primary, .btn-outline, .btn-responder')) {
-        if (window.forumAnimationsInstance) {
-            window.forumAnimationsInstance.animateButtonClick(e.target);
-        }
+document.addEventListener('click', function (e) {
+  if (e.target.matches('.btn-primary, .btn-outline, .btn-responder')) {
+    if (window.forumAnimationsInstance) {
+      window.forumAnimationsInstance.animateButtonClick(e.target);
     }
+  }
 });
 
 function cerrarModalImagen() {
-    const modal = document.querySelector('.imagen-modal');
-    if (!modal) return;
-    if (window.forumAnimationsInstance) {
-        window.forumAnimationsInstance.closeImageModal(modal);
-    } else {
-        modal.style.display = 'none';
-    }
+  const modal = document.querySelector('.imagen-modal');
+  if (!modal) return;
+  if (window.forumAnimationsInstance) {
+    window.forumAnimationsInstance.closeImageModal(modal);
+  } else {
+    modal.style.display = 'none';
+  }
 }
 
 function aplicarFiltro(filtro) {
-    const filtroActivo = document.querySelector('.filtro-activo');
-    if (filtroActivo && window.forumAnimationsInstance) {
-        window.forumAnimationsInstance.animateActiveFilter(filtroActivo);
-    }
+  const filtroActivo = document.querySelector('.filtro-activo');
+  if (filtroActivo && window.forumAnimationsInstance) {
+    window.forumAnimationsInstance.animateActiveFilter(filtroActivo);
+  }
 }
 
 function seleccionarHashtag(hashtagElement) {
-    if (window.forumAnimationsInstance) {
-        window.forumAnimationsInstance.animateHashtagSelection(hashtagElement);
-    }
+  if (window.forumAnimationsInstance) {
+    window.forumAnimationsInstance.animateHashtagSelection(hashtagElement);
+  }
 }
 
 function actualizarContador() {
@@ -960,12 +915,12 @@ function actualizarContador() {
   if (mensaje && contador) {
     contador.textContent = `${mensaje.value.length} / 300`;
     if (window.forumAnimationsInstance) {
-        window.forumAnimationsInstance.animateCharacterCounter(contador, mensaje.value.length > 280);
+      window.forumAnimationsInstance.animateCharacterCounter(contador, mensaje.value.length > 280);
     }
   }
 }
 
 const mensajeTextarea = document.getElementById('mensaje');
 if (mensajeTextarea) {
-    mensajeTextarea.addEventListener('input', actualizarContador);
+  mensajeTextarea.addEventListener('input', actualizarContador);
 }
